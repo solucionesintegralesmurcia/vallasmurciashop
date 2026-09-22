@@ -178,4 +178,19 @@ footer a:hover{color:#fff;}
 .cookie-accept{background:var(--clay);color:#fff;}
 .cookie-reject{background:transparent;border:1px solid #6b6a5e;color:#EDEBE3;}
 
+/* Breadcrumb */
+.breadcrumb{padding:14px 0 0;font-size:.82rem;color:var(--ink-soft);}
+.breadcrumb a{text-decoration:none;color:var(--ink-soft);}
+.breadcrumb a:hover{color:var(--clay);}
+
+/* Detail page hero (product / locality) */
+.detail-hero{padding:28px 0 12px;}
+.detail-hero .kicker{font-family:var(--font-head);color:var(--clay);font-size:.95rem;margin-bottom:.3em;}
+.detail-hero h1{font-size:clamp(2rem,4vw,2.8rem);}
+.detail-hero .lead{font-size:1.05rem;max-width:60ch;}
+.detail-hero .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:1em;}
+
+.benefit-card ul{margin:.4em 0 0;padding-left:1.1em;color:var(--ink-soft);font-size:.92rem;}
+.benefit-card ul li{margin-bottom:.3em;}
+
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
