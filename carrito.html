@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tu carrito | Vallas Murcia</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .cart-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
+  .cart-table th,.cart-table td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line);font-size:.95rem;}
+  .cart-table input[type=number]{width:56px;padding:.3em;border:1px solid var(--line);border-radius:6px;}
+  .cart-remove{background:none;border:0;color:var(--clay);cursor:pointer;font-size:.85rem;}
+  .cart-total-row td{font-weight:700;font-family:var(--font-head);font-size:1.2rem;}
+  .cart-empty{padding:40px 0;text-align:center;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row">
+    <a href="/" class="logo">Vallas<span>Murcia</span></a>
+    <nav class="main-nav" id="main-nav">
+      <a href="/catalogo.html">Tienda</a>
+      <a href="/#zonas">Zonas</a>
+      <a href="/#faq">Preguntas</a>
+    </nav>
+    <div class="header-actions">
+      <a href="/carrito.html" class="icon-btn" aria-label="Carrito" style="position:relative;">
+        🛒<span class="cart-badge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--clay);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.7rem;align-items:center;justify-content:center;">0</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:48px;max-width:720px;margin:0 auto;">
+    <div class="container">
+      <h1 style="font-family:var(--font-head);font-size:2rem;">Tu carrito</h1>
+      <div id="cart-content"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container"><div class="footer-legal">© Vallas Murcia</div></div>
+</footer>
+
+<script src="/products.js"></script>
+<script src="/cart.js"></script>
+<script>
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  function renderCartPage(){
+    var cart = getCart();
+    var el = document.getElementById('cart-content');
+    if (cart.length === 0){
+      el.innerHTML = '<div class="cart-empty"><p>Tu carrito está vacío.</p><a href="/catalogo.html" class="btn btn-clay">Ir a la tienda</a></div>';
+      return;
+    }
+    var rows = cart.map(function(i){
+      return '<tr>' +
+        '<td>' + i.name + '</td>' +
+        '<td><input type="number" min="1" value="' + i.qty + '" onchange="setQty(\'' + i.id + '\', this.value)"></td>' +
+        '<td>' + i.price.toFixed(2).replace('.', ',') + ' €</td>' +
+        '<td>' + (i.price * i.qty).toFixed(2).replace('.', ',') + ' €</td>' +
+        '<td><button class="cart-remove" onclick="removeFromCart(\'' + i.id + '\')">Quitar</button></td>' +
+      '</tr>';
+    }).join('');
+    el.innerHTML =
+      '<table class="cart-table"><thead><tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th><th></th></tr></thead>' +
+      '<tbody>' + rows +
+      '<tr class="cart-total-row"><td colspan="3">Total</td><td colspan="2">' + cartTotal().toFixed(2).replace('.', ',') + ' €</td></tr>' +
+      '</tbody></table>' +
+      '<button id="checkout-btn" class="btn btn-clay" onclick="goToCheckout()">Pagar con tarjeta</button>' +
+      '<p style="font-size:.8rem;color:var(--ink-soft);margin-top:.6em;">Pago seguro procesado por Stripe. No almacenamos los datos de tu tarjeta.</p>';
+  }
+  renderCartPage();
+</script>
+
+</body>
+</html>

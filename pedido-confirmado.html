@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pedido confirmado | Vallas Murcia</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-row">
+    <a href="/" class="logo">Vallas<span>Murcia</span></a>
+  </div>
+</header>
+<main>
+  <section class="final-cta">
+    <div class="container">
+      <div style="font-size:3rem;">✅</div>
+      <h1 style="font-family:var(--font-head);">¡Pedido confirmado!</h1>
+      <p>Hemos recibido tu pago correctamente. Te escribiremos por email para coordinar el envío o la instalación.</p>
+      <p id="ref" style="font-size:.85rem;color:var(--ink-soft);"></p>
+      <a href="/" class="btn btn-clay">Volver al inicio</a>
+    </div>
+  </section>
+</main>
+<footer><div class="container"><div class="footer-legal">© Vallas Murcia</div></div></footer>
+
+<script>
+  // Vaciamos el carrito: el pedido ya se ha pagado.
+  localStorage.removeItem('vallasmurcia_cart');
+  var params = new URLSearchParams(window.location.search);
+  var sessionId = params.get('session_id');
+  if (sessionId) {
+    document.getElementById('ref').textContent = 'Referencia de pago: ' + sessionId;
+  }
+</script>
+</body>
+</html>

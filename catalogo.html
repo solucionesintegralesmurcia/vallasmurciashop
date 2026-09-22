@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Comprar vallado online | Vallas Murcia</title>
+<meta name="description" content="Compra online malla ganadera, cinegética, simple torsión, electrosoldada, gallinera y valla Hércules. Pago seguro con tarjeta, envío en la Región de Murcia.">
+<link rel="canonical" href="https://vallasmurcia.es/catalogo.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row">
+    <a href="/" class="logo">Vallas<span>Murcia</span></a>
+    <nav class="main-nav" id="main-nav">
+      <a href="/catalogo.html">Tienda</a>
+      <a href="/#zonas">Zonas</a>
+      <a href="/#faq">Preguntas</a>
+      <a href="tel:+34639311161">📞 639 31 11 61</a>
+    </nav>
+    <div class="header-actions">
+      <a href="/carrito.html" class="icon-btn" aria-label="Carrito" style="position:relative;">
+        🛒<span class="cart-badge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--clay);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.7rem;align-items:center;justify-content:center;">0</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:48px;">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Tienda online</p>
+        <h1 style="font-family:var(--font-head);font-size:clamp(2rem,4vw,2.8rem);">Compra tu vallado directamente</h1>
+        <p>Precios con IVA incluido. Pago seguro con tarjeta. Envío a toda la Región de Murcia.</p>
+      </div>
+
+      <div class="catalog-grid" id="shop-grid"></div>
+
+      <div class="section-head" style="margin-top:56px;">
+        <p class="eyebrow">A medida</p>
+        <h2>¿Necesitas instalación o un proyecto completo?</h2>
+        <p>El cerramiento de parcela y las puertas se hacen a medida — pide presupuesto sin compromiso.</p>
+      </div>
+      <div class="catalog-grid">
+        <a class="product-card" href="/cerramiento-parcela-murcia.html">
+          <span class="tag">Vivienda</span>
+          <div class="product-icon">🏡</div>
+          <h3>Cerramiento de parcela</h3>
+          <p>Vallado completo para viviendas y chalets: malla, postes y puertas.</p>
+          <span class="go">Pedir presupuesto →</span>
+        </a>
+        <a class="product-card" href="/puertas-para-vallados-murcia.html">
+          <span class="tag">Acceso</span>
+          <div class="product-icon">🚪</div>
+          <h3>Puertas para vallados</h3>
+          <p>Puertas peatonales y de vehículo a juego con tu cercado.</p>
+          <span class="go">Pedir presupuesto →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-legal">© Vallas Murcia — Vallado y cercados metálicos en la Región de Murcia</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20pedido" class="wa-float" aria-label="WhatsApp">💬</a>
+
+<script src="/products.js"></script>
+<script src="/cart.js"></script>
+<script>
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  var grid = document.getElementById('shop-grid');
+  grid.innerHTML = PRODUCTS.map(function(p){
+    return '' +
+      '<article class="product-card" style="position:relative;">' +
+        '<div class="product-icon">' + p.icon + '</div>' +
+        '<h3>' + p.name + '</h3>' +
+        '<p>' + p.desc + '</p>' +
+        '<p style="font-family:var(--font-head);font-size:1.3rem;color:var(--clay);margin:0;">' + p.price.toFixed(2).replace('.', ',') + ' €</p>' +
+        '<button class="btn btn-clay" style="margin-top:.4em;" data-add="' + p.id + '" onclick="addToCart(\'' + p.id + '\')">Añadir al carrito</button>' +
+      '</article>';
+  }).join('');
+</script>
+
+</body>
+</html>
