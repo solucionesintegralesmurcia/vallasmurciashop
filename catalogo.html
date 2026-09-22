@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Comprar vallado online | Vallas Murcia</title>
-<meta name="description" content="Compra online malla ganadera, cinegética, simple torsión, electrosoldada, gallinera y valla Hércules. Pago seguro con tarjeta, envío en la Región de Murcia.">
+<title>Tienda online | Vallas Murcia</title>
+<meta name="description" content="Compra online mallas metálicas, postes, puertas, alambres, kits de vallado y accesorios. Elige entre varias medidas de cada producto. Pago seguro con tarjeta.">
 <link rel="canonical" href="https://vallasmurcia.es/catalogo.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,32 +36,31 @@
     <div class="container">
       <div class="section-head">
         <p class="eyebrow">Tienda online</p>
-        <h1 style="font-family:var(--font-head);font-size:clamp(2rem,4vw,2.8rem);">Compra tu vallado directamente</h1>
-        <p>Precios con IVA incluido. Pago seguro con tarjeta. Envío a toda la Región de Murcia.</p>
+        <h1 style="font-family:var(--font-head);font-size:clamp(2rem,4vw,2.8rem);">Todo tu vallado en un solo sitio</h1>
+        <p>Mallas, postes, puertas, alambres, kits y accesorios. Cada producto tiene su propia ficha con las medidas disponibles. Precios con IVA incluido, pago seguro con tarjeta.</p>
       </div>
 
-      <div class="catalog-grid" id="shop-grid"></div>
+      <p class="sample-note">📸 Las fotos de los productos son ilustraciones de muestra para que veas cómo queda la tienda — en cuanto nos pases fotos reales de tu material o de instalaciones, las cambiamos.</p>
 
-      <div class="section-head" style="margin-top:56px;">
-        <p class="eyebrow">A medida</p>
-        <h2>¿Necesitas instalación o un proyecto completo?</h2>
-        <p>El cerramiento de parcela y las puertas se hacen a medida — pide presupuesto sin compromiso.</p>
-      </div>
-      <div class="catalog-grid">
-        <a class="product-card" href="/cerramiento-parcela-murcia.html">
-          <span class="tag">Vivienda</span>
-          <div class="product-icon">🏡</div>
-          <h3>Cerramiento de parcela</h3>
-          <p>Vallado completo para viviendas y chalets: malla, postes y puertas.</p>
-          <span class="go">Pedir presupuesto →</span>
-        </a>
-        <a class="product-card" href="/puertas-para-vallados-murcia.html">
-          <span class="tag">Acceso</span>
-          <div class="product-icon">🚪</div>
-          <h3>Puertas para vallados</h3>
-          <p>Puertas peatonales y de vehículo a juego con tu cercado.</p>
-          <span class="go">Pedir presupuesto →</span>
-        </a>
+      <nav class="shop-tabs" id="shop-tabs" aria-label="Categorías"></nav>
+
+      <div id="shop-categories"></div>
+
+      <div class="shop-category" id="cat-a-medida" style="padding-top:24px;">
+        <div class="section-head">
+          <p class="eyebrow">A medida</p>
+          <h2>¿Necesitas instalación o un proyecto completo?</h2>
+          <p>El cerramiento de parcela se hace a medida — pide presupuesto sin compromiso.</p>
+        </div>
+        <div class="catalog-grid">
+          <a class="product-card" href="/cerramiento-parcela-murcia.html">
+            <span class="tag">Vivienda</span>
+            <div class="product-icon">🏡</div>
+            <h3>Cerramiento de parcela</h3>
+            <p>Vallado completo para viviendas y chalets: malla, postes y puertas.</p>
+            <span class="go">Pedir presupuesto →</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -73,7 +72,7 @@
   </div>
 </footer>
 
-<a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20pedido" class="wa-float" aria-label="WhatsApp">💬</a>
+<a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20producto" class="wa-float" aria-label="WhatsApp">💬</a>
 
 <script src="/products.js"></script>
 <script src="/cart.js"></script>
@@ -84,17 +83,34 @@
     var open = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open);
   });
+</script>
+<script>
+  var tabsEl = document.getElementById('shop-tabs');
+  var catsEl = document.getElementById('shop-categories');
 
-  var grid = document.getElementById('shop-grid');
-  grid.innerHTML = PRODUCTS.map(function(p){
+  tabsEl.innerHTML = CATEGORIES.map(function(c){
+    return '<a class="shop-tab" href="#cat-' + c.id + '">' + c.name + '</a>';
+  }).join('') + '<a class="shop-tab" href="#cat-a-medida">A medida</a>';
+
+  catsEl.innerHTML = CATEGORIES.map(function(c){
+    var items = PRODUCT_GROUPS.filter(function(g){ return g.category === c.id; });
+    if (!items.length) return '';
+    var cards = items.map(function(g){
+      var minPrice = Math.min.apply(null, g.variants.map(function(v){ return v.price; }));
+      return '' +
+        '<a class="product-card" href="/producto-' + g.slug + '.html">' +
+          '<img class="product-photo" src="' + g.img + '" alt="' + g.name + '" loading="lazy">' +
+          '<h3>' + g.name + '</h3>' +
+          '<p>' + g.shortDesc + '</p>' +
+          '<p style="font-family:var(--font-head);font-size:1.15rem;color:var(--clay);margin:0;">Desde ' + minPrice.toFixed(2).replace('.', ',') + ' €</p>' +
+          '<span class="go">Ver ficha y comprar →</span>' +
+        '</a>';
+    }).join('');
     return '' +
-      '<article class="product-card" style="position:relative;">' +
-        '<div class="product-icon">' + p.icon + '</div>' +
-        '<h3>' + p.name + '</h3>' +
-        '<p>' + p.desc + '</p>' +
-        '<p style="font-family:var(--font-head);font-size:1.3rem;color:var(--clay);margin:0;">' + p.price.toFixed(2).replace('.', ',') + ' €</p>' +
-        '<button class="btn btn-clay" style="margin-top:.4em;" data-add="' + p.id + '" onclick="addToCart(\'' + p.id + '\')">Añadir al carrito</button>' +
-      '</article>';
+      '<div class="shop-category" id="cat-' + c.id + '">' +
+        '<div class="section-head"><h2>' + c.name + '</h2></div>' +
+        '<div class="catalog-grid" style="margin-bottom:48px;">' + cards + '</div>' +
+      '</div>';
   }).join('');
 </script>
 

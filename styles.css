@@ -125,6 +125,35 @@ p{margin:0 0 1em;color:var(--ink-soft);max-width:62ch;}
   border-radius:8px;padding:12px 16px;font-size:.88rem;color:var(--ink-soft);margin:0 0 32px;
 }
 
+/* Product detail page */
+.breadcrumb{font-size:.85rem;color:var(--ink-soft);margin-bottom:18px;}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none;}
+.breadcrumb a:hover{color:var(--clay);}
+.sibling-chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 8px;}
+.sibling-chips a{
+  padding:.4em .9em;border-radius:999px;border:1px solid var(--line);background:var(--card);
+  color:var(--ink-soft);text-decoration:none;font-size:.85rem;font-weight:600;
+}
+.sibling-chips a.active,.sibling-chips a:hover{border-color:var(--clay);color:var(--clay);}
+.pdp-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin:28px 0 56px;}
+@media (max-width:860px){.pdp-grid{grid-template-columns:1fr;}}
+.pdp-photo{width:100%;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);}
+.buy-box{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.buy-box label{font-weight:700;font-size:.9rem;display:block;margin-bottom:6px;}
+.buy-box select{
+  width:100%;padding:.7em;border-radius:8px;border:1px solid var(--line);
+  font-family:var(--font-body);font-size:.95rem;background:#fff;color:var(--ink);
+}
+.buy-price{font-family:var(--font-head);font-size:2rem;color:var(--clay);}
+.qty-row{display:flex;align-items:center;gap:10px;}
+.qty-stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+.qty-stepper button{width:36px;height:36px;border:0;background:var(--bg);font-size:1.1rem;cursor:pointer;}
+.qty-stepper input{width:44px;border:0;text-align:center;font-size:1rem;}
+.buy-trust{font-size:.85rem;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px;margin-top:4px;}
+
 /* Benefits */
 .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;}
 .benefit-card{text-align:left;}

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><defs><pattern id="p6" width="38.1" height="33.0" patternUnits="userSpaceOnUse">
+      <polygon points="36.2,31.9 19.1,41.8 1.9,31.9 1.9,12.1 19.1,2.2 36.2,12.1" fill="none" stroke="#8F4416" stroke-width="1.8"/>
+    </pattern></defs>
+    <rect width="400" height="300" fill="#F6F3EC"/>
+    <rect width="400" height="300" fill="url(#p6)"/></svg>

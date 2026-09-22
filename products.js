@@ -3,48 +3,226 @@
 // el mismo catálogo en /api/_products.js (el servidor no confía en este archivo,
 // solo lo usa para pintar la tienda; el precio real que se cobra sale del servidor).
 //
-// Cada producto tiene "category" (para agrupar en la tienda) e "img" (imagen
-// de muestra en /img/products/). Las imágenes actuales son ilustraciones
-// genéricas para ver cómo queda la tienda — sustitúyelas por fotos reales de
-// tu material o instalaciones cuando las tengas.
+// PRODUCT_GROUPS = una página de producto por grupo, con sus variantes (opciones).
+// PRODUCTS = todas las variantes "aplanadas", una por cada combinación comprable
+// (esto es lo que usa el carrito: cada variante tiene su propio id y precio).
 const CATEGORIES = [
-  { id: 'mallas',     name: 'Mallas metálicas' },
-  { id: 'postes',     name: 'Postes metálicos' },
-  { id: 'puertas',    name: 'Puertas para vallado' },
-  { id: 'alambres',   name: 'Alambres' },
-  { id: 'kits',       name: 'Kits de vallado' },
+  { id: 'mallas', name: 'Mallas metálicas' },
+  { id: 'postes', name: 'Postes metálicos' },
+  { id: 'puertas', name: 'Puertas para vallado' },
+  { id: 'alambres', name: 'Alambres' },
+  { id: 'kits', name: 'Kits de vallado' },
   { id: 'accesorios', name: 'Accesorios' },
-  { id: 'jardineria', name: 'Jardinería' },
+  { id: 'jardineria', name: 'Jardinería' }
 ];
 
-const PRODUCTS = [
-  // Mallas metálicas
-  { id: 'malla-ganadera',       name: 'Malla ganadera galvanizada',       desc: 'Rollo de 50 m. Para fincas y control de ganado.',                 price: 58.08,  category: 'mallas',     img: '/img/products/malla-ganadera.svg' },
-  { id: 'malla-cinegetica',     name: 'Malla cinegética galvanizada',     desc: 'Rollo de 50 m. Cumple normativa de paso de fauna.',               price: 62.50,  category: 'mallas',     img: '/img/products/malla-cinegetica.svg' },
-  { id: 'valla-hercules',       name: 'Valla Hércules galvanizada',       desc: 'Rollo de 25 m. Panel soldado de alta resistencia.',               price: 74.90,  category: 'mallas',     img: '/img/products/malla-hercules.svg' },
-  { id: 'malla-simple-torsion', name: 'Malla simple torsión galvanizada', desc: 'Rollo de 25 m. La opción más económica.',                         price: 43.56,  category: 'mallas',     img: '/img/products/malla-simple-torsion.svg' },
-  { id: 'malla-electrosoldada', name: 'Malla electrosoldada galvanizada', desc: 'Rollo de 25 m. Rígida y estable.',                                price: 41.38,  category: 'mallas',     img: '/img/products/malla-electrosoldada.svg' },
-  { id: 'malla-gallinera',      name: 'Malla gallinera galvanizada',      desc: 'Rollo de 25 m. Para gallineros y corrales.',                      price: 27.30,  category: 'mallas',     img: '/img/products/malla-gallinera.svg' },
-
-  // Postes metálicos
-  { id: 'poste-hercules',       name: 'Poste para valla Hércules',        desc: 'Poste galvanizado de 2 m, para malla Hércules.',                  price: 9.90,   category: 'postes',     img: '/img/products/poste.svg' },
-  { id: 'poste-simple-torsion', name: 'Poste para simple torsión',        desc: 'Poste galvanizado de 2 m, para simple torsión y electrosoldada.', price: 6.50,   category: 'postes',     img: '/img/products/poste.svg' },
-
-  // Puertas para vallado
-  { id: 'puerta-peatonal',      name: 'Puerta peatonal galvanizada',      desc: 'Ancho 1 m. Puerta de acceso a juego con el cercado.',             price: 89.00,  category: 'puertas',    img: '/img/products/puerta-peatonal.svg' },
-  { id: 'puerta-abatible',      name: 'Puerta abatible de dos hojas',     desc: 'Ancho 4 m. Para acceso de vehículos a la finca.',                 price: 249.00, category: 'puertas',    img: '/img/products/puerta-abatible.svg' },
-
-  // Alambres
-  { id: 'alambre-espino',       name: 'Alambre de espino galvanizado',    desc: 'Rollo de 500 m. Refuerzo disuasorio para el cercado.',            price: 34.90,  category: 'alambres',   img: '/img/products/alambre-espino.svg' },
-  { id: 'alambre-liso',         name: 'Alambre liso galvanizado',         desc: 'Rollo de 100 m, calibre 2,5 mm. Para tensar el vallado.',         price: 19.90,  category: 'alambres',   img: '/img/products/alambre-liso.svg' },
-
-  // Kits de vallado
-  { id: 'kit-basico-25m',       name: 'Kit de vallado básico (25 m)',     desc: 'Malla simple torsión + postes + tensores para 25 m lineales.',   price: 189.00, category: 'kits',       img: '/img/products/kit-vallado.svg' },
-
-  // Accesorios
-  { id: 'grapa-malla-h',        name: 'Grapa de fijación malla H',        desc: 'Bolsa de 100 unidades.',                                          price: 7.90,   category: 'accesorios', img: '/img/products/accesorio.svg' },
-  { id: 'tensor-galvanizado',   name: 'Tensor galvanizado',               desc: 'Unidad, para tensar alambre y malla.',                            price: 3.20,   category: 'accesorios', img: '/img/products/accesorio.svg' },
-
-  // Jardinería
-  { id: 'malla-ocultacion',     name: 'Malla de ocultación verde',        desc: 'Rollo de 1 x 25 m, 70 g/m². Para vallados de jardín.',            price: 29.90,  category: 'jardineria', img: '/img/products/malla-ocultacion.svg' },
+const PRODUCT_GROUPS = [
+  {
+    slug: 'malla-ganadera',
+    name: 'Malla ganadera galvanizada',
+    category: 'mallas',
+    img: '/img/products/malla-ganadera.svg',
+    shortDesc: 'Malla de alambre galvanizado pensada para contener ganado y delimitar fincas rústicas.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'malla-ganadera-25m', label: 'Rollo 25 m', price: 29.04 },
+      { id: 'malla-ganadera-50m', label: 'Rollo 50 m', price: 58.08 }
+    ]
+  },
+  {
+    slug: 'malla-cinegetica',
+    name: 'Malla cinegética galvanizada',
+    category: 'mallas',
+    img: '/img/products/malla-cinegetica.svg',
+    shortDesc: 'Malla con separación de alambres regulada por normativa, que permite el paso de fauna silvestre.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'malla-cinegetica-25m', label: 'Rollo 25 m', price: 31.25 },
+      { id: 'malla-cinegetica-50m', label: 'Rollo 50 m', price: 62.5 }
+    ]
+  },
+  {
+    slug: 'valla-hercules',
+    name: 'Valla Hércules galvanizada',
+    category: 'mallas',
+    img: '/img/products/malla-hercules.svg',
+    shortDesc: 'Panel de malla soldada de gran resistencia, uno de los sistemas de vallado más utilizados en España.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'valla-hercules-25m', label: 'Rollo 25 m', price: 74.9 },
+      { id: 'valla-hercules-50m', label: 'Rollo 50 m', price: 149.8 }
+    ]
+  },
+  {
+    slug: 'malla-simple-torsion',
+    name: 'Malla simple torsión galvanizada',
+    category: 'mallas',
+    img: '/img/products/malla-simple-torsion.svg',
+    shortDesc: 'La solución más extendida y económica para delimitar parcelas, jardines y terrenos.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'malla-simple-torsion-25m', label: 'Rollo 25 m', price: 43.56 },
+      { id: 'malla-simple-torsion-50m', label: 'Rollo 50 m', price: 87.12 }
+    ]
+  },
+  {
+    slug: 'malla-electrosoldada',
+    name: 'Malla electrosoldada galvanizada',
+    category: 'mallas',
+    img: '/img/products/malla-electrosoldada.svg',
+    shortDesc: 'Malla rígida de cuadrícula soldada, estable y fácil de manejar, para agricultura, ganadería e industria.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'malla-electrosoldada-25m', label: 'Rollo 25 m', price: 41.38 },
+      { id: 'malla-electrosoldada-50m', label: 'Rollo 50 m', price: 82.76 }
+    ]
+  },
+  {
+    slug: 'malla-gallinera',
+    name: 'Malla gallinera galvanizada',
+    category: 'mallas',
+    img: '/img/products/malla-gallinera.svg',
+    shortDesc: 'Malla hexagonal ligera, la opción más económica para gallineros, corrales y conejeras.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'malla-gallinera-25m', label: 'Rollo 25 m', price: 27.3 },
+      { id: 'malla-gallinera-50m', label: 'Rollo 50 m', price: 54.6 }
+    ]
+  },
+  {
+    slug: 'poste-hercules',
+    name: 'Poste para valla Hércules',
+    category: 'postes',
+    img: '/img/products/poste.svg',
+    shortDesc: 'Poste metálico galvanizado a juego con la valla Hércules, para fijar y tensar el cercado.',
+    variantLabel: 'Altura del poste',
+    variants: [
+      { id: 'poste-hercules-150', label: '1,50 m', price: 8.2 },
+      { id: 'poste-hercules-200', label: '2,00 m', price: 9.9 },
+      { id: 'poste-hercules-250', label: '2,50 m', price: 12.4 }
+    ]
+  },
+  {
+    slug: 'poste-simple-torsion',
+    name: 'Poste para simple torsión',
+    category: 'postes',
+    img: '/img/products/poste.svg',
+    shortDesc: 'Poste metálico galvanizado para malla simple torsión y electrosoldada.',
+    variantLabel: 'Altura del poste',
+    variants: [
+      { id: 'poste-simple-torsion-150', label: '1,50 m', price: 5.4 },
+      { id: 'poste-simple-torsion-200', label: '2,00 m', price: 6.5 },
+      { id: 'poste-simple-torsion-250', label: '2,50 m', price: 8.1 }
+    ]
+  },
+  {
+    slug: 'puerta-peatonal',
+    name: 'Puerta peatonal galvanizada',
+    category: 'puertas',
+    img: '/img/products/puerta-peatonal.svg',
+    shortDesc: 'Puerta de acceso peatonal galvanizada, a juego con cualquiera de nuestros cercados.',
+    variantLabel: 'Ancho de paso',
+    variants: [
+      { id: 'puerta-peatonal-100', label: '1,00 m', price: 89.0 },
+      { id: 'puerta-peatonal-120', label: '1,20 m', price: 104.0 }
+    ]
+  },
+  {
+    slug: 'puerta-abatible',
+    name: 'Puerta abatible de dos hojas',
+    category: 'puertas',
+    img: '/img/products/puerta-abatible.svg',
+    shortDesc: 'Puerta de dos hojas para acceso de vehículos y maquinaria a la finca.',
+    variantLabel: 'Ancho total',
+    variants: [
+      { id: 'puerta-abatible-300', label: '3,00 m', price: 199.0 },
+      { id: 'puerta-abatible-400', label: '4,00 m', price: 249.0 },
+      { id: 'puerta-abatible-500', label: '5,00 m', price: 299.0 }
+    ]
+  },
+  {
+    slug: 'alambre-espino',
+    name: 'Alambre de espino galvanizado',
+    category: 'alambres',
+    img: '/img/products/alambre-espino.svg',
+    shortDesc: 'Alambre con púas galvanizado, refuerzo disuasorio en la parte superior del cercado.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'alambre-espino-250', label: 'Rollo 250 m', price: 19.9 },
+      { id: 'alambre-espino-500', label: 'Rollo 500 m', price: 34.9 }
+    ]
+  },
+  {
+    slug: 'alambre-liso',
+    name: 'Alambre liso galvanizado',
+    category: 'alambres',
+    img: '/img/products/alambre-liso.svg',
+    shortDesc: 'Alambre liso galvanizado para tensar mallas y rematar vallados.',
+    variantLabel: 'Longitud del rollo',
+    variants: [
+      { id: 'alambre-liso-50', label: 'Rollo 50 m', price: 11.9 },
+      { id: 'alambre-liso-100', label: 'Rollo 100 m', price: 19.9 }
+    ]
+  },
+  {
+    slug: 'kit-vallado-basico',
+    name: 'Kit de vallado básico',
+    category: 'kits',
+    img: '/img/products/kit-vallado.svg',
+    shortDesc: 'Todo lo necesario para vallar tu parcela: malla, postes y tensores en un solo pedido.',
+    variantLabel: 'Longitud del kit',
+    variants: [
+      { id: 'kit-vallado-basico-25', label: 'Para 25 m lineales', price: 189.0 },
+      { id: 'kit-vallado-basico-50', label: 'Para 50 m lineales', price: 349.0 }
+    ]
+  },
+  {
+    slug: 'grapa-malla-h',
+    name: 'Grapa de fijación malla H',
+    category: 'accesorios',
+    img: '/img/products/accesorio.svg',
+    shortDesc: 'Grapas para fijar malla electrosoldada y valla Hércules a los postes.',
+    variantLabel: 'Formato',
+    variants: [
+      { id: 'grapa-malla-h-50', label: 'Bolsa 50 uds.', price: 4.5 },
+      { id: 'grapa-malla-h-100', label: 'Bolsa 100 uds.', price: 7.9 }
+    ]
+  },
+  {
+    slug: 'tensor-galvanizado',
+    name: 'Tensor galvanizado',
+    category: 'accesorios',
+    img: '/img/products/accesorio.svg',
+    shortDesc: 'Tensor galvanizado para tensar alambre y malla en el vallado.',
+    variantLabel: 'Formato',
+    variants: [
+      { id: 'tensor-galvanizado-1', label: 'Unidad', price: 3.2 },
+      { id: 'tensor-galvanizado-10', label: 'Pack 10 uds.', price: 27.9 }
+    ]
+  },
+  {
+    slug: 'malla-ocultacion',
+    name: 'Malla de ocultación verde',
+    category: 'jardineria',
+    img: '/img/products/malla-ocultacion.svg',
+    shortDesc: 'Malla de tejido verde para dar privacidad y protección al vallado de tu jardín.',
+    variantLabel: 'Altura',
+    variants: [
+      { id: 'malla-ocultacion-100', label: '1,00 m', price: 24.9 },
+      { id: 'malla-ocultacion-150', label: '1,50 m', price: 34.9 }
+    ]
+  }
 ];
+
+const PRODUCTS = PRODUCT_GROUPS.reduce(function(list, g) {
+  g.variants.forEach(function(v) {
+    list.push({
+      id: v.id,
+      name: g.name + ' — ' + v.label,
+      price: v.price,
+      category: g.category,
+      img: g.img,
+    });
+  });
+  return list;
+}, []);

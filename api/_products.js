@@ -3,33 +3,39 @@
 // el precio de aquí, nunca el que venga del navegador. Si cambias algo,
 // cambia también /products.js para que la tienda lo muestre igual.
 module.exports = {
-  // Mallas metálicas
-  'malla-ganadera':       { name: 'Malla ganadera galvanizada (rollo 50 m)',       price: 58.08 },
-  'malla-cinegetica':     { name: 'Malla cinegética galvanizada (rollo 50 m)',     price: 62.50 },
-  'valla-hercules':       { name: 'Valla Hércules galvanizada (rollo 25 m)',       price: 74.90 },
-  'malla-simple-torsion': { name: 'Malla simple torsión galvanizada (rollo 25 m)', price: 43.56 },
-  'malla-electrosoldada': { name: 'Malla electrosoldada galvanizada (rollo 25 m)', price: 41.38 },
-  'malla-gallinera':      { name: 'Malla gallinera galvanizada (rollo 25 m)',      price: 27.30 },
-
-  // Postes metálicos
-  'poste-hercules':       { name: 'Poste para valla Hércules (2 m)',               price: 9.90 },
-  'poste-simple-torsion': { name: 'Poste para simple torsión (2 m)',               price: 6.50 },
-
-  // Puertas para vallado
-  'puerta-peatonal':      { name: 'Puerta peatonal galvanizada (1 m)',             price: 89.00 },
-  'puerta-abatible':      { name: 'Puerta abatible de dos hojas (4 m)',            price: 249.00 },
-
-  // Alambres
-  'alambre-espino':       { name: 'Alambre de espino galvanizado (rollo 500 m)',   price: 34.90 },
-  'alambre-liso':         { name: 'Alambre liso galvanizado (rollo 100 m)',        price: 19.90 },
-
-  // Kits de vallado
-  'kit-basico-25m':       { name: 'Kit de vallado básico (25 m)',                  price: 189.00 },
-
-  // Accesorios
-  'grapa-malla-h':        { name: 'Grapa de fijación malla H (bolsa 100 uds)',     price: 7.90 },
-  'tensor-galvanizado':   { name: 'Tensor galvanizado (unidad)',                   price: 3.20 },
-
-  // Jardinería
-  'malla-ocultacion':     { name: 'Malla de ocultación verde (rollo 1x25 m)',      price: 29.90 },
+  'malla-ganadera-25m': { name: 'Malla ganadera galvanizada — Rollo 25 m', price: 29.04 },
+  'malla-ganadera-50m': { name: 'Malla ganadera galvanizada — Rollo 50 m', price: 58.08 },
+  'malla-cinegetica-25m': { name: 'Malla cinegética galvanizada — Rollo 25 m', price: 31.25 },
+  'malla-cinegetica-50m': { name: 'Malla cinegética galvanizada — Rollo 50 m', price: 62.5 },
+  'valla-hercules-25m': { name: 'Valla Hércules galvanizada — Rollo 25 m', price: 74.9 },
+  'valla-hercules-50m': { name: 'Valla Hércules galvanizada — Rollo 50 m', price: 149.8 },
+  'malla-simple-torsion-25m': { name: 'Malla simple torsión galvanizada — Rollo 25 m', price: 43.56 },
+  'malla-simple-torsion-50m': { name: 'Malla simple torsión galvanizada — Rollo 50 m', price: 87.12 },
+  'malla-electrosoldada-25m': { name: 'Malla electrosoldada galvanizada — Rollo 25 m', price: 41.38 },
+  'malla-electrosoldada-50m': { name: 'Malla electrosoldada galvanizada — Rollo 50 m', price: 82.76 },
+  'malla-gallinera-25m': { name: 'Malla gallinera galvanizada — Rollo 25 m', price: 27.3 },
+  'malla-gallinera-50m': { name: 'Malla gallinera galvanizada — Rollo 50 m', price: 54.6 },
+  'poste-hercules-150': { name: 'Poste para valla Hércules — 1,50 m', price: 8.2 },
+  'poste-hercules-200': { name: 'Poste para valla Hércules — 2,00 m', price: 9.9 },
+  'poste-hercules-250': { name: 'Poste para valla Hércules — 2,50 m', price: 12.4 },
+  'poste-simple-torsion-150': { name: 'Poste para simple torsión — 1,50 m', price: 5.4 },
+  'poste-simple-torsion-200': { name: 'Poste para simple torsión — 2,00 m', price: 6.5 },
+  'poste-simple-torsion-250': { name: 'Poste para simple torsión — 2,50 m', price: 8.1 },
+  'puerta-peatonal-100': { name: 'Puerta peatonal galvanizada — 1,00 m', price: 89.0 },
+  'puerta-peatonal-120': { name: 'Puerta peatonal galvanizada — 1,20 m', price: 104.0 },
+  'puerta-abatible-300': { name: 'Puerta abatible de dos hojas — 3,00 m', price: 199.0 },
+  'puerta-abatible-400': { name: 'Puerta abatible de dos hojas — 4,00 m', price: 249.0 },
+  'puerta-abatible-500': { name: 'Puerta abatible de dos hojas — 5,00 m', price: 299.0 },
+  'alambre-espino-250': { name: 'Alambre de espino galvanizado — Rollo 250 m', price: 19.9 },
+  'alambre-espino-500': { name: 'Alambre de espino galvanizado — Rollo 500 m', price: 34.9 },
+  'alambre-liso-50': { name: 'Alambre liso galvanizado — Rollo 50 m', price: 11.9 },
+  'alambre-liso-100': { name: 'Alambre liso galvanizado — Rollo 100 m', price: 19.9 },
+  'kit-vallado-basico-25': { name: 'Kit de vallado básico — Para 25 m lineales', price: 189.0 },
+  'kit-vallado-basico-50': { name: 'Kit de vallado básico — Para 50 m lineales', price: 349.0 },
+  'grapa-malla-h-50': { name: 'Grapa de fijación malla H — Bolsa 50 uds.', price: 4.5 },
+  'grapa-malla-h-100': { name: 'Grapa de fijación malla H — Bolsa 100 uds.', price: 7.9 },
+  'tensor-galvanizado-1': { name: 'Tensor galvanizado — Unidad', price: 3.2 },
+  'tensor-galvanizado-10': { name: 'Tensor galvanizado — Pack 10 uds.', price: 27.9 },
+  'malla-ocultacion-100': { name: 'Malla de ocultación verde — 1,00 m', price: 24.9 },
+  'malla-ocultacion-150': { name: 'Malla de ocultación verde — 1,50 m', price: 34.9 },
 };

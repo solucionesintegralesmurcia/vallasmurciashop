@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Puerta abatible de dos hojas | Vallas Murcia</title>
+<meta name="description" content="Puerta de dos hojas para acceso de vehículos y maquinaria a la finca.">
+<link rel="canonical" href="https://vallasmurcia.es/producto-puerta-abatible.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row">
+    <a href="/" class="logo">Vallas<span>Murcia</span></a>
+    <nav class="main-nav" id="main-nav">
+      <a href="/catalogo.html">Tienda</a>
+      <a href="/#zonas">Zonas</a>
+      <a href="/#faq">Preguntas</a>
+      <a href="tel:+34639311161">📞 639 31 11 61</a>
+    </nav>
+    <div class="header-actions">
+      <a href="/carrito.html" class="icon-btn" aria-label="Carrito" style="position:relative;">
+        🛒<span class="cart-badge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--clay);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.7rem;align-items:center;justify-content:center;">0</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:36px;padding-bottom:24px;">
+    <div class="container">
+      <p class="breadcrumb"><a href="/">Inicio</a> / <a href="/catalogo.html#cat-puertas">Puertas para vallado</a> / Puerta abatible de dos hojas</p>
+
+      <h1 style="font-family:var(--font-head);font-size:clamp(1.8rem,4vw,2.6rem);">Puerta abatible de dos hojas</h1>
+      <p style="max-width:62ch;">Puerta de dos hojas para acceso de vehículos y maquinaria a la finca.</p>
+
+      <nav class="sibling-chips" aria-label="Otros productos de Puertas para vallado">
+      <a href="/producto-puerta-peatonal.html">Puerta peatonal</a>
+      <a href="/producto-puerta-abatible.html" class="active">Puerta abatible de dos hojas</a>
+      </nav>
+
+      <div class="pdp-grid" id="comprar">
+        <div>
+          <img class="pdp-photo" id="pdp-photo" src="/img/products/puerta-abatible.svg" alt="Puerta abatible de dos hojas">
+          <p class="sample-note" style="margin-top:14px;">📸 Foto de muestra — la sustituimos por fotos reales de tu material en cuanto nos las envíes.</p>
+        </div>
+
+        <div class="buy-box">
+          <div>
+            <label for="variant-select">Ancho total</label>
+            <select id="variant-select" onchange="onVariantChange()">
+        <option value="puerta-abatible-300" data-price="199.0">3,00 m — 199,00 €</option>
+        <option value="puerta-abatible-400" data-price="249.0">4,00 m — 249,00 €</option>
+        <option value="puerta-abatible-500" data-price="299.0">5,00 m — 299,00 €</option>
+            </select>
+          </div>
+
+          <div class="buy-price" id="buy-price">199,00 €</div>
+
+          <div class="qty-row">
+            <label style="margin:0;">Cantidad</label>
+            <div class="qty-stepper">
+              <button type="button" onclick="stepQty(-1)">−</button>
+              <input id="qty-input" type="number" min="1" value="1">
+              <button type="button" onclick="stepQty(1)">+</button>
+            </div>
+          </div>
+
+          <button class="btn btn-clay" id="add-btn" onclick="addCurrentVariant()">Añadir al carrito</button>
+          <a href="/carrito.html" class="btn btn-outline" style="justify-content:center;">Ver carrito</a>
+
+          <div class="buy-trust">
+            <span>🚚 Envío en toda la Región de Murcia</span>
+            <span>🔒 Pago seguro con tarjeta (Stripe)</span>
+            <span>🏗️ Fabricante e instalador directo</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2>Descripción</h2>
+      </div>
+      <p>Puerta abatible de dos hojas en tubo de acero galvanizado, pensada para el acceso de vehículos y maquinaria agrícola.</p>
+      <p>Se suministra con bisagras reforzadas; recomendamos postes de esquina de mayor diámetro en los puntos de anclaje.</p>
+
+      <div class="section-head" style="margin-top:48px;">
+        <p class="eyebrow">También te puede interesar</p>
+        <h2>Otros productos</h2>
+      </div>
+      <div class="catalog-grid" style="margin-bottom:24px;">
+      <a class="product-card" href="/producto-malla-ganadera.html">
+        <img class="product-photo" src="/img/products/malla-ganadera.svg" alt="Malla ganadera galvanizada" loading="lazy">
+        <h3>Malla ganadera galvanizada</h3>
+        <p>Malla de alambre galvanizado pensada para contener ganado y delimitar fincas rústicas.</p>
+        <span class="go">Ver ficha y comprar →</span>
+      </a>
+      <a class="product-card" href="/producto-malla-cinegetica.html">
+        <img class="product-photo" src="/img/products/malla-cinegetica.svg" alt="Malla cinegética galvanizada" loading="lazy">
+        <h3>Malla cinegética galvanizada</h3>
+        <p>Malla con separación de alambres regulada por normativa, que permite el paso de fauna silvestre.</p>
+        <span class="go">Ver ficha y comprar →</span>
+      </a>
+      <a class="product-card" href="/producto-valla-hercules.html">
+        <img class="product-photo" src="/img/products/malla-hercules.svg" alt="Valla Hércules galvanizada" loading="lazy">
+        <h3>Valla Hércules galvanizada</h3>
+        <p>Panel de malla soldada de gran resistencia, uno de los sistemas de vallado más utilizados en España.</p>
+        <span class="go">Ver ficha y comprar →</span>
+      </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="hero-card" style="text-align:center;">
+        <h2 style="color:#fff;">¿Necesitas ayuda para elegir?</h2>
+        <p style="color:#fff;opacity:.85;">Cuéntanos tu proyecto y te asesoramos sin compromiso.</p>
+        <div class="hero-actions" style="justify-content:center;">
+          <a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20puerta-abatible" class="btn btn-clay">💬 WhatsApp</a>
+          <a href="tel:+34639311161" class="btn btn-outline" style="border-color:#fff;color:#fff;">📞 Llamar</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-legal">© Vallas Murcia — Vallado y cercados metálicos en la Región de Murcia</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20producto" class="wa-float" aria-label="WhatsApp">💬</a>
+
+<script src="/products.js"></script>
+<script src="/cart.js"></script>
+<script>
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+</script>
+<script>
+  var GROUP_SLUG = 'puerta-abatible';
+
+  function currentGroup(){
+    return PRODUCT_GROUPS.find(function(g){ return g.slug === GROUP_SLUG; });
+  }
+  function currentVariant(){
+    var id = document.getElementById('variant-select').value;
+    return PRODUCTS.find(function(p){ return p.id === id; });
+  }
+  function onVariantChange(){
+    var v = currentVariant();
+    document.getElementById('buy-price').textContent = v.price.toFixed(2).replace('.', ',') + ' €';
+    document.getElementById('add-btn').setAttribute('data-add', v.id);
+  }
+  function stepQty(delta){
+    var input = document.getElementById('qty-input');
+    var n = Math.max(1, (parseInt(input.value, 10) || 1) + delta);
+    input.value = n;
+  }
+  function addCurrentVariant(){
+    var v = currentVariant();
+    var qty = Math.max(1, parseInt(document.getElementById('qty-input').value, 10) || 1);
+    for (var i = 0; i < qty; i++) addToCart(v.id);
+  }
+  onVariantChange();
+</script>
+
+</body>
+</html>
