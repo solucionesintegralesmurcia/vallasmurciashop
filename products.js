@@ -21,7 +21,7 @@ const PRODUCT_GROUPS = [
     slug: 'malla-ganadera',
     name: 'Malla ganadera galvanizada',
     category: 'mallas',
-    img: '/img/products/malla-ganadera.svg',
+    img: '/img/products/malla-ganadera.webp',
     shortDesc: 'Malla de alambre galvanizado pensada para contener ganado y delimitar fincas rústicas.',
     variantLabel: 'Longitud del rollo',
     variants: [
@@ -33,7 +33,7 @@ const PRODUCT_GROUPS = [
     slug: 'malla-cinegetica',
     name: 'Malla cinegética galvanizada',
     category: 'mallas',
-    img: '/img/products/malla-cinegetica.svg',
+    img: '/img/products/malla-cinegetica.webp',
     shortDesc: 'Malla con separación de alambres regulada por normativa, que permite el paso de fauna silvestre.',
     variantLabel: 'Longitud del rollo',
     variants: [
@@ -45,7 +45,7 @@ const PRODUCT_GROUPS = [
     slug: 'valla-hercules',
     name: 'Valla Hércules galvanizada',
     category: 'mallas',
-    img: '/img/products/malla-hercules.svg',
+    img: '/img/products/malla-hercules.webp',
     shortDesc: 'Panel de malla soldada de gran resistencia, uno de los sistemas de vallado más utilizados en España.',
     variantLabel: 'Longitud del rollo',
     variants: [
@@ -57,7 +57,7 @@ const PRODUCT_GROUPS = [
     slug: 'malla-simple-torsion',
     name: 'Malla simple torsión galvanizada',
     category: 'mallas',
-    img: '/img/products/malla-simple-torsion.svg',
+    img: '/img/products/malla-simple-torsion.webp',
     shortDesc: 'La solución más extendida y económica para delimitar parcelas, jardines y terrenos.',
     variantLabel: 'Longitud del rollo',
     variants: [
@@ -69,7 +69,7 @@ const PRODUCT_GROUPS = [
     slug: 'malla-electrosoldada',
     name: 'Malla electrosoldada galvanizada',
     category: 'mallas',
-    img: '/img/products/malla-electrosoldada.svg',
+    img: '/img/products/malla-electrosoldada.webp',
     shortDesc: 'Malla rígida de cuadrícula soldada, estable y fácil de manejar, para agricultura, ganadería e industria.',
     variantLabel: 'Longitud del rollo',
     variants: [
@@ -81,7 +81,7 @@ const PRODUCT_GROUPS = [
     slug: 'malla-gallinera',
     name: 'Malla gallinera galvanizada',
     category: 'mallas',
-    img: '/img/products/malla-gallinera.svg',
+    img: '/img/products/malla-gallinera.webp',
     shortDesc: 'Malla hexagonal ligera, la opción más económica para gallineros, corrales y conejeras.',
     variantLabel: 'Longitud del rollo',
     variants: [
