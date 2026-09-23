@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculadora de presupuesto de vallado | Vallas Murcia</title>
+<meta name="description" content="Calcula al instante una estimación orientativa del precio de tu vallado en Murcia: elige el tipo de malla, la longitud y si necesitas postes. Presupuesto final gratis y sin compromiso.">
+<link rel="canonical" href="https://vallasmurcia.es/calculadora-vallados.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+<style>
+  .calc-wrap{max-width:720px;margin:0 auto;}
+  .calc-box{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px;box-shadow:var(--shadow-md);
+  }
+  .calc-field{margin-bottom:18px;}
+  .calc-field label{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px;}
+  .calc-field select, .calc-field input[type="number"]{
+    width:100%;padding:.75em .9em;border-radius:8px;border:1px solid var(--line);
+    font-family:var(--font-body);font-size:1rem;background:#fff;color:var(--ink);
+  }
+  .calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:600px){.calc-row{grid-template-columns:1fr;}}
+  .calc-check{display:flex;align-items:center;gap:10px;font-weight:600;font-size:.95rem;}
+  .calc-check input{width:18px;height:18px;}
+  .calc-result{
+    margin-top:24px;padding-top:22px;border-top:1px dashed var(--line);
+  }
+  .calc-line{display:flex;justify-content:space-between;font-size:.95rem;color:var(--ink-soft);padding:4px 0;}
+  .calc-total{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:var(--font-head);font-size:1.9rem;color:var(--clay);
+    padding-top:10px;margin-top:6px;border-top:1px solid var(--line);
+  }
+  .calc-total span:last-child{font-size:2.1rem;}
+  .calc-note{font-size:.82rem;color:var(--ink-soft);margin-top:10px;}
+  .calc-cta{margin-top:20px;}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-row">
+    <a href="/" class="logo"><img src="img/logo-vallas-murcia-v2.webp" alt="Vallas Murcia" class="logo-img"/></a>
+    <nav class="main-nav" id="main-nav">
+      <a href="/catalogo.html">Tienda</a>
+      <a href="/calculadora-vallados.html">Calculadora</a>
+      <a href="/#zonas">Zonas</a>
+      <a href="/#faq">Preguntas</a>
+      <a href="tel:+34639311161">📞 639 31 11 61</a>
+    </nav>
+    <div class="header-actions">
+      <a href="/carrito.html" class="icon-btn" aria-label="Carrito" style="position:relative;">
+        🛒<span class="cart-badge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--clay);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.7rem;align-items:center;justify-content:center;">0</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="breadcrumb container"><a href="/">Inicio</a> › Calculadora de presupuesto</div>
+
+  <section class="detail-hero">
+    <div class="container">
+      <p class="kicker">Herramienta gratuita</p>
+      <h1>Calcula el precio de tu vallado</h1>
+      <p class="lead">Elige el tipo de malla, la longitud de tu finca o parcela, y si necesitas postes. Te damos una estimación al momento — el presupuesto final, cerrado y gratis, lo confirmamos por WhatsApp o en una visita a tu terreno.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:24px;">
+    <div class="container calc-wrap">
+      <div class="calc-box">
+        <div class="calc-field">
+          <label for="calc-tipo">Tipo de vallado</label>
+          <select id="calc-tipo"></select>
+        </div>
+
+        <div class="calc-row">
+          <div class="calc-field">
+            <label for="calc-longitud">Longitud del vallado (metros lineales)</label>
+            <input type="number" id="calc-longitud" min="1" step="1" value="50" inputmode="numeric">
+          </div>
+          <div class="calc-field">
+            <label for="calc-altura">Altura deseada</label>
+            <select id="calc-altura">
+              <option value="1,00 m">1,00 m</option>
+              <option value="1,25 m">1,25 m</option>
+              <option value="1,50 m" selected>1,50 m</option>
+              <option value="2,00 m">2,00 m</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-field">
+          <label class="calc-check">
+            <input type="checkbox" id="calc-postes" checked>
+            Incluir postes (aprox. cada 3 metros)
+          </label>
+        </div>
+
+        <div class="calc-result">
+          <div class="calc-line"><span id="calc-line-malla-label">Malla</span><span id="calc-line-malla-precio">0 €</span></div>
+          <div class="calc-line" id="calc-line-postes-row"><span id="calc-line-postes-label">Postes</span><span id="calc-line-postes-precio">0 €</span></div>
+          <div class="calc-total"><span>Total estimado de materiales</span><span id="calc-total-precio">0 €</span></div>
+          <p class="calc-note">Estimación orientativa de materiales, calculada con nuestros precios de tienda. No incluye instalación, transporte ni excavación — eso depende del terreno y te lo confirmamos sin compromiso. La altura elegida no cambia este cálculo (se usa la malla estándar); si necesitas una altura especial, dínoslo al pedir presupuesto.</p>
+        </div>
+
+        <div class="calc-cta">
+          <a id="calc-whatsapp" href="#" target="_blank" class="btn btn-clay" style="width:100%;justify-content:center;">💬 Pedir presupuesto real por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <div>
+        <h2>¿Prefieres que te llamemos?</h2>
+        <p>Cuéntanos tu proyecto y te llamamos para concretar medidas y precio.</p>
+      </div>
+      <div class="cta-band-actions">
+        <a href="tel:+34639311161" class="btn btn-clay">📞 639 31 11 61</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-legal">© Vallas Murcia — Vallado y cercados metálicos en la Región de Murcia</div>
+  </div>
+</footer>
+
+<a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20producto" class="wa-float" aria-label="WhatsApp">💬</a>
+
+<script src="/products.js"></script>
+<script src="/cart.js"></script>
+<script>
+  var toggle = document.getElementById('nav-toggle');
+  var nav = document.getElementById('main-nav');
+  toggle.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+</script>
+<script>
+(function(){
+  "use strict";
+
+  var MALLAS = PRODUCT_GROUPS.filter(function(g){ return g.category === 'mallas'; });
+  var POSTE_HERCULES = PRODUCT_GROUPS.find(function(g){ return g.slug === 'poste-hercules'; });
+  var POSTE_SIMPLE = PRODUCT_GROUPS.find(function(g){ return g.slug === 'poste-simple-torsion'; });
+
+  var selTipo = document.getElementById('calc-tipo');
+  selTipo.innerHTML = MALLAS.map(function(g){
+    return '<option value="' + g.slug + '">' + g.name + '</option>';
+  }).join('');
+
+  function metrosDeEtiqueta(label){
+    var m = label.match(/(\d+)\s*m/);
+    return m ? parseInt(m[1], 10) : null;
+  }
+
+  function precioPorMetro(grupo){
+    var mejor = null;
+    grupo.variants.forEach(function(v){
+      var metros = metrosDeEtiqueta(v.label);
+      if(!metros) return;
+      var ppm = v.price / metros;
+      if(mejor === null || ppm < mejor) mejor = ppm;
+    });
+    return mejor || 0;
+  }
+
+  function euros(n){
+    return n.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
+  }
+
+  function calcular(){
+    var slug = selTipo.value;
+    var grupo = MALLAS.find(function(g){ return g.slug === slug; });
+    var longitud = parseFloat(document.getElementById('calc-longitud').value) || 0;
+    var altura = document.getElementById('calc-altura').value;
+    var conPostes = document.getElementById('calc-postes').checked;
+
+    var ppm = precioPorMetro(grupo);
+    var costeMalla = ppm * longitud;
+
+    var posteGrupo = slug === 'valla-hercules' ? POSTE_HERCULES : POSTE_SIMPLE;
+    var numPostes = Math.max(2, Math.ceil(longitud / 3) + 1);
+    var precioPoste = posteGrupo ? Math.min.apply(null, posteGrupo.variants.map(function(v){ return v.price; })) : 0;
+    var costePostes = conPostes ? numPostes * precioPoste : 0;
+
+    var total = costeMalla + costePostes;
+
+    document.getElementById('calc-line-malla-label').textContent = grupo.name + ' (' + longitud + ' m)';
+    document.getElementById('calc-line-malla-precio').textContent = euros(costeMalla);
+    document.getElementById('calc-line-postes-row').style.display = conPostes ? 'flex' : 'none';
+    document.getElementById('calc-line-postes-label').textContent = 'Postes (' + numPostes + ' uds. aprox.)';
+    document.getElementById('calc-line-postes-precio').textContent = euros(costePostes);
+    document.getElementById('calc-total-precio').textContent = euros(total);
+
+    var texto = 'Hola, he usado la calculadora de la web y quiero presupuesto real:\n' +
+      '- Tipo de vallado: ' + grupo.name + '\n' +
+      '- Longitud: ' + longitud + ' m\n' +
+      '- Altura deseada: ' + altura + '\n' +
+      '- Postes: ' + (conPostes ? 'sí' : 'no') + '\n' +
+      '- Estimación de materiales de la web: ' + euros(total);
+    document.getElementById('calc-whatsapp').href = 'https://wa.me/34639311161?text=' + encodeURIComponent(texto);
+  }
+
+  ['calc-tipo','calc-longitud','calc-altura','calc-postes'].forEach(function(id){
+    document.getElementById(id).addEventListener('input', calcular);
+    document.getElementById(id).addEventListener('change', calcular);
+  });
+
+  calcular();
+})();
+</script>
+
+</body>
+</html>
