@@ -232,6 +232,14 @@ p{margin:0 0 1em;color:var(--ink-soft);max-width:62ch;}
 }
 .chip:hover{border-color:var(--clay);color:var(--clay);transform:translateY(-1px);}
 .chip.is-current{background:var(--steel-dark);color:#fff;border-color:var(--steel-dark);}
+.chip-more{display:none;}
+.chip-grid.expanded .chip-more{display:inline-flex;}
+.zone-more-btn{
+  margin-top:12px;background:none;border:1.5px solid var(--line);color:var(--clay);
+  font-weight:700;padding:.55em 1.2em;border-radius:999px;cursor:pointer;font-size:.85rem;
+  transition:border-color .15s ease, transform .15s ease;
+}
+.zone-more-btn:hover{border-color:var(--clay);transform:translateY(-1px);}
 
 /* CTA band */
 .cta-band{background:var(--steel-dark);color:#fff;padding:56px 0;}
