@@ -55,6 +55,7 @@ module.exports = async (req, res) => {
       success_url: `${origin}/pedido-confirmado.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/carrito.html`,
       shipping_address_collection: { allowed_countries: ['ES'] },
+      phone_number_collection: { enabled: true },
       locale: 'es',
     });
 

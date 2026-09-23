@@ -3,20 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tu carrito | Vallas Murcia</title>
+<title>Tu pedido | Vallas Murcia</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<style>
-  .cart-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
-  .cart-table th,.cart-table td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line);font-size:.95rem;}
-  .cart-table input[type=number]{width:56px;padding:.3em;border:1px solid var(--line);border-radius:6px;}
-  .cart-remove{background:none;border:0;color:var(--clay);cursor:pointer;font-size:.85rem;}
-  .cart-total-row td{font-weight:700;font-family:var(--font-head);font-size:1.2rem;}
-  .cart-empty{padding:40px 0;text-align:center;}
-</style>
 </head>
 <body>
 
@@ -38,16 +30,35 @@
 </header>
 
 <main>
-  <section class="section" style="padding-top:48px;max-width:720px;margin:0 auto;">
-    <div class="container">
-      <h1 style="font-family:var(--font-head);font-size:2rem;">Tu carrito</h1>
+  <section class="section" style="padding-top:40px;">
+    <div class="container" style="max-width:1000px;">
+
+      <div class="trust-strip">
+        <span>🚚 Envío en toda la Región de Murcia</span>
+        <span>🧾 Factura por email</span>
+        <span>🔒 Pago seguro con tarjeta</span>
+        <span>🏗️ Fabricante e instalador directo</span>
+      </div>
+
+      <p class="order-steps"><b>1. Tu pedido</b> → 2. Datos de envío y pago (página segura de Stripe)</p>
+      <h1 style="font-family:var(--font-head);font-size:2rem;margin-bottom:4px;">Tu pedido</h1>
+      <p style="color:var(--ink-soft);margin-top:0;">Revisa las cantidades y continúa: el envío y el pago con tarjeta se completan en la página segura de Stripe.</p>
+
       <div id="cart-content"></div>
     </div>
   </section>
 </main>
 
+<div class="order-mobile-bar" id="mobile-bar" style="display:none;">
+  <div>
+    <div style="font-size:.75rem;color:var(--ink-soft);">Total</div>
+    <div style="font-family:var(--font-head);font-size:1.2rem;color:var(--clay);" id="mobile-total">0,00 €</div>
+  </div>
+  <button class="btn btn-clay" id="mobile-checkout-btn" onclick="goToCheckout()">Continuar al pago seguro</button>
+</div>
+
 <footer>
-  <div class="container"><div class="footer-legal">© Vallas Murcia</div></div>
+  <div class="container"><div class="footer-legal">© Vallas Murcia — Vallado y cercados metálicos en la Región de Murcia</div></div>
 </footer>
 
 <script src="/products.js"></script>
@@ -63,27 +74,70 @@
   function renderCartPage(){
     var cart = getCart();
     var el = document.getElementById('cart-content');
+    var mobileBar = document.getElementById('mobile-bar');
+
     if (cart.length === 0){
       el.innerHTML = '<div class="cart-empty"><p>Tu carrito está vacío.</p><a href="/catalogo.html" class="btn btn-clay">Ir a la tienda</a></div>';
+      mobileBar.style.display = 'none';
       return;
     }
-    var rows = cart.map(function(i){
-      return '<tr>' +
-        '<td>' + i.name + '</td>' +
-        '<td><input type="number" min="1" value="' + i.qty + '" onchange="setQty(\'' + i.id + '\', this.value)"></td>' +
-        '<td>' + i.price.toFixed(2).replace('.', ',') + ' €</td>' +
-        '<td>' + (i.price * i.qty).toFixed(2).replace('.', ',') + ' €</td>' +
-        '<td><button class="cart-remove" onclick="removeFromCart(\'' + i.id + '\')">Quitar</button></td>' +
-      '</tr>';
+
+    var items = cart.map(function(i){
+      return '' +
+        '<div class="order-item">' +
+          (i.img ? '<img src="' + i.img + '" alt="' + i.name + '">' : '') +
+          '<div class="info">' +
+            '<h4>' + i.name + '</h4>' +
+            '<div class="row-actions">' +
+              '<div class="qty-stepper">' +
+                '<button type="button" onclick="stepCartQty(\'' + i.id + '\', -1)">−</button>' +
+                '<input type="number" min="1" value="' + i.qty + '" onchange="setQty(\'' + i.id + '\', this.value)">' +
+                '<button type="button" onclick="stepCartQty(\'' + i.id + '\', 1)">+</button>' +
+              '</div>' +
+              '<button class="cart-remove" style="background:none;border:0;color:var(--clay);cursor:pointer;font-size:.85rem;" onclick="removeFromCart(\'' + i.id + '\')">Quitar</button>' +
+            '</div>' +
+          '</div>' +
+          '<div class="line-total">' + (i.price * i.qty).toFixed(2).replace('.', ',') + ' €</div>' +
+        '</div>';
     }).join('');
+
+    var total = cartTotal();
+    var totalFmt = total.toFixed(2).replace('.', ',') + ' €';
+
     el.innerHTML =
-      '<table class="cart-table"><thead><tr><th>Producto</th><th>Cant.</th><th>Precio</th><th>Subtotal</th><th></th></tr></thead>' +
-      '<tbody>' + rows +
-      '<tr class="cart-total-row"><td colspan="3">Total</td><td colspan="2">' + cartTotal().toFixed(2).replace('.', ',') + ' €</td></tr>' +
-      '</tbody></table>' +
-      '<button id="checkout-btn" class="btn btn-clay" onclick="goToCheckout()">Pagar con tarjeta</button>' +
-      '<p style="font-size:.8rem;color:var(--ink-soft);margin-top:.6em;">Pago seguro procesado por Stripe. No almacenamos los datos de tu tarjeta.</p>';
+      '<div class="order-layout">' +
+        '<div>' + items +
+          '<p style="margin-top:16px;"><a href="/catalogo.html" style="color:var(--ink-soft);text-decoration:none;font-size:.9rem;">← Seguir comprando</a></p>' +
+        '</div>' +
+        '<aside class="order-summary">' +
+          '<h3 style="margin-top:0;">Resumen</h3>' +
+          '<div class="order-summary-row"><span>Subtotal</span><span>' + totalFmt + '</span></div>' +
+          '<div class="order-summary-row"><span>Envío</span><span>Se calcula en el siguiente paso</span></div>' +
+          '<div class="order-summary-total"><span>Total</span><span>' + totalFmt + '</span></div>' +
+          '<label class="order-legal">' +
+            '<input type="checkbox" id="legal-check" checked style="margin-top:3px;">' +
+            '<span>Acepto que mis datos se usen para gestionar este pedido.</span>' +
+          '</label>' +
+          '<button id="checkout-btn" class="btn btn-clay" style="width:100%;justify-content:center;" onclick="goToCheckout()">Continuar al pago seguro</button>' +
+          '<p style="font-size:.78rem;color:var(--ink-soft);margin-top:10px;">Se te pedirán los datos de envío y de tarjeta en la página segura de Stripe. No guardamos los datos de tu tarjeta.</p>' +
+        '</aside>' +
+      '</div>';
+
+    document.getElementById('mobile-total').textContent = totalFmt;
+    mobileBar.style.display = 'flex';
   }
+
+  var _origGoToCheckout = goToCheckout;
+  goToCheckout = async function(){
+    var legal = document.getElementById('legal-check');
+    if (legal && !legal.checked) { alert('Debes aceptar el uso de tus datos para continuar.'); return; }
+    var btn = document.getElementById('checkout-btn');
+    var mBtn = document.getElementById('mobile-checkout-btn');
+    if (btn) btn.textContent = 'Redirigiendo a pago seguro…';
+    if (mBtn) mBtn.textContent = 'Redirigiendo…';
+    await _origGoToCheckout();
+  };
+
   renderCartPage();
 </script>
 

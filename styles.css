@@ -154,6 +154,37 @@ p{margin:0 0 1em;color:var(--ink-soft);max-width:62ch;}
 .qty-stepper input{width:44px;border:0;text-align:center;font-size:1rem;}
 .buy-trust{font-size:.85rem;color:var(--ink-soft);display:flex;flex-direction:column;gap:4px;margin-top:4px;}
 
+/* Carrito / pedido */
+.order-steps{display:flex;gap:8px;align-items:center;font-size:.85rem;color:var(--ink-soft);margin-bottom:18px;}
+.order-steps b{color:var(--clay);}
+.order-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:32px;align-items:start;}
+@media (max-width:860px){.order-layout{grid-template-columns:1fr;}}
+.trust-strip{
+  display:flex;flex-wrap:wrap;gap:18px;padding:12px 0 22px;font-size:.85rem;color:var(--ink-soft);
+  border-bottom:1px solid var(--line);margin-bottom:26px;
+}
+.order-item{display:flex;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);}
+.order-item img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:var(--bg);flex:none;}
+.order-item .info{flex:1;min-width:0;}
+.order-item .info h4{margin:0 0 2px;font-size:.98rem;}
+.order-item .row-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px;}
+.order-item .line-total{font-family:var(--font-head);font-size:1.1rem;color:var(--clay);white-space:nowrap;}
+.order-summary{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+  position:sticky;top:90px;
+}
+.order-summary-row{display:flex;justify-content:space-between;font-size:.92rem;padding:6px 0;color:var(--ink-soft);}
+.order-summary-total{display:flex;justify-content:space-between;font-family:var(--font-head);font-size:1.4rem;
+  padding-top:12px;margin-top:8px;border-top:1px solid var(--line);}
+.order-legal{display:flex;gap:8px;align-items:flex-start;font-size:.8rem;color:var(--ink-soft);margin:14px 0;}
+.order-mobile-bar{
+  display:none;position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
+  padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px));
+  align-items:center;justify-content:space-between;gap:12px;z-index:20;
+}
+@media (max-width:860px){.order-mobile-bar{display:flex;} body{padding-bottom:76px;}}
+.cart-empty{padding:40px 0;text-align:center;}
+
 /* Benefits */
 .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;}
 .benefit-card{text-align:left;}

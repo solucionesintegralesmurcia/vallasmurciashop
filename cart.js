@@ -17,7 +17,7 @@ function addToCart(id) {
   const cart = getCart();
   const existing = cart.find(i => i.id === id);
   if (existing) existing.qty += 1;
-  else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1 });
+  else cart.push({ id: product.id, name: product.name, price: product.price, qty: 1, img: product.img });
   saveCart(cart);
   flashAdded(id);
 }
@@ -29,6 +29,12 @@ function setQty(id, qty) {
   const cart = getCart();
   const item = cart.find(i => i.id === id);
   if (item) { item.qty = Math.max(1, parseInt(qty, 10) || 1); saveCart(cart); }
+  if (typeof renderCartPage === 'function') renderCartPage();
+}
+function stepCartQty(id, delta) {
+  const cart = getCart();
+  const item = cart.find(i => i.id === id);
+  if (item) { item.qty = Math.max(1, item.qty + delta); saveCart(cart); }
   if (typeof renderCartPage === 'function') renderCartPage();
 }
 function cartTotal() {
