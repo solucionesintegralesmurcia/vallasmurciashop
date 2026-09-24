@@ -10,35 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<style>
-  .calc-wrap{max-width:720px;margin:0 auto;}
-  .calc-box{
-    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:28px;box-shadow:var(--shadow-md);
-  }
-  .calc-field{margin-bottom:18px;}
-  .calc-field label{display:block;font-weight:700;font-size:.92rem;margin-bottom:6px;}
-  .calc-field select, .calc-field input[type="number"]{
-    width:100%;padding:.75em .9em;border-radius:8px;border:1px solid var(--line);
-    font-family:var(--font-body);font-size:1rem;background:#fff;color:var(--ink);
-  }
-  .calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media(max-width:600px){.calc-row{grid-template-columns:1fr;}}
-  .calc-check{display:flex;align-items:center;gap:10px;font-weight:600;font-size:.95rem;}
-  .calc-check input{width:18px;height:18px;}
-  .calc-result{
-    margin-top:24px;padding-top:22px;border-top:1px dashed var(--line);
-  }
-  .calc-line{display:flex;justify-content:space-between;font-size:.95rem;color:var(--ink-soft);padding:4px 0;}
-  .calc-total{
-    display:flex;justify-content:space-between;align-items:baseline;
-    font-family:var(--font-head);font-size:1.9rem;color:var(--clay);
-    padding-top:10px;margin-top:6px;border-top:1px solid var(--line);
-  }
-  .calc-total span:last-child{font-size:2.1rem;}
-  .calc-note{font-size:.82rem;color:var(--ink-soft);margin-top:10px;}
-  .calc-cta{margin-top:20px;}
-</style>
 </head>
 <body>
 
@@ -75,6 +46,11 @@
   <section class="section" style="padding-top:24px;">
     <div class="container calc-wrap">
       <div class="calc-box">
+        <div class="calc-box-head">
+          <span class="calc-icon">📐</span>
+          <h3>Tu presupuesto al instante</h3>
+        </div>
+        <p class="calc-box-sub">Rellena los datos de tu vallado y te damos una estimación real ahora mismo.</p>
         <div class="calc-field">
           <label for="calc-tipo">Tipo de vallado</label>
           <select id="calc-tipo"></select>
