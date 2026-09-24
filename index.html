@@ -111,47 +111,47 @@
         <p><a href="/catalogo.html" style="font-weight:700;color:var(--clay);">🛒 Ir a la tienda y comprar online →</a></p>
       </div>
       <div class="catalog-grid">
-        <a class="product-card" href="/malla-ganadera-cinegetica-murcia.html">
+        <a class="product-card" href="/producto-malla-ganadera.html">
           <span class="tag">Fincas rústicas</span>
           <img class="product-photo" src="img/products/malla-ganadera.webp" alt="Malla ganadera en finca de Murcia" loading="lazy">
           <h3>Malla ganadera</h3>
           <p>Vallado resistente para delimitar fincas y controlar el paso de ganado.</p>
-          <span class="go">Ver más →</span>
+          <span class="go">Ver ficha y comprar →</span>
         </a>
-        <a class="product-card" href="/malla-ganadera-cinegetica-murcia.html">
+        <a class="product-card" href="/producto-malla-cinegetica.html">
           <span class="tag">Terrenos cinegéticos</span>
           <img class="product-photo" src="img/products/malla-cinegetica.webp" alt="Malla cinegética en finca de Murcia" loading="lazy">
           <h3>Malla cinegética</h3>
           <p>Cumple la normativa de la Región de Murcia sobre paso de fauna silvestre.</p>
-          <span class="go">Ver más →</span>
+          <span class="go">Ver ficha y comprar →</span>
         </a>
-        <a class="product-card" href="/valla-hercules-murcia.html">
+        <a class="product-card" href="/producto-valla-hercules.html">
           <span class="tag">Más vendida</span>
           <img class="product-photo" src="img/products/malla-hercules.webp" alt="Valla Hércules instalada en Murcia" loading="lazy">
           <h3>Valla Hércules</h3>
           <p>Malla galvanizada soldada de gran resistencia. Equilibrio entre precio y durabilidad.</p>
-          <span class="go">Ver más →</span>
+          <span class="go">Ver ficha y comprar →</span>
         </a>
-        <a class="product-card" href="/malla-simple-torsion-murcia.html">
+        <a class="product-card" href="/producto-malla-simple-torsion.html">
           <span class="tag">Económica</span>
           <img class="product-photo" src="img/products/malla-simple-torsion.webp" alt="Malla simple torsión en Murcia" loading="lazy">
           <h3>Malla simple torsión</h3>
           <p>La solución más extendida para delimitar parcelas, jardines y terrenos.</p>
-          <span class="go">Ver más →</span>
+          <span class="go">Ver ficha y comprar →</span>
         </a>
-        <a class="product-card" href="/malla-electrosoldada-murcia.html">
+        <a class="product-card" href="/producto-malla-electrosoldada.html">
           <span class="tag">Rígida y estable</span>
           <img class="product-photo" src="img/products/malla-electrosoldada.webp" alt="Malla electrosoldada en Murcia" loading="lazy">
           <h3>Malla electrosoldada</h3>
           <p>Más rígida que la simple torsión, mantiene mejor su forma con el tiempo.</p>
-          <span class="go">Ver más →</span>
+          <span class="go">Ver ficha y comprar →</span>
         </a>
-        <a class="product-card" href="/malla-gallinera-murcia.html">
+        <a class="product-card" href="/producto-malla-gallinera.html">
           <span class="tag">Gallineros y corrales</span>
           <img class="product-photo" src="img/products/malla-gallinera.webp" alt="Malla gallinera en Murcia" loading="lazy">
           <h3>Malla gallinera</h3>
           <p>La opción más económica para gallineros, corrales y conejeras.</p>
-          <span class="go">Ver más →</span>
+          <span class="go">Ver ficha y comprar →</span>
         </a>
         <a class="product-card" href="/cerramiento-parcela-murcia.html">
           <span class="tag">Vivienda</span>
@@ -377,6 +377,7 @@
 </footer>
 
 <a href="https://wa.me/34639311161?text=Hola%2C%20quiero%20presupuesto%20de%20vallado" class="wa-float" aria-label="WhatsApp">💬</a>
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Subir arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <div class="cookie-banner" id="cookie-banner">
   <div class="container">
@@ -425,5 +426,15 @@
   }
 </script>
 
+<script>
+  (function(){
+    var btt = document.getElementById('back-to-top');
+    if(!btt) return;
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 400){ btt.classList.add('show'); }
+      else { btt.classList.remove('show'); }
+    });
+  })();
+</script>
 </body>
 </html>
