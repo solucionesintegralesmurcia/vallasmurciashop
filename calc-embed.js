@@ -33,9 +33,12 @@
       : null;
 
     mount.innerHTML =
-      '<div class="calc-box" style="margin-top:20px;">' +
-        '<h3 style="margin-bottom:6px;">📐 Calcula cuánto necesitas</h3>' +
-        '<p style="font-size:.88rem;color:var(--ink-soft);margin-bottom:14px;">Dinos los metros de tu vallado y calculamos rollos y postes al momento.</p>' +
+      '<div class="calc-box" style="margin-top:24px;">' +
+        '<div class="calc-box-head">' +
+          '<span class="calc-icon">📐</span>' +
+          '<h3>Calcula cuánto necesitas</h3>' +
+        '</div>' +
+        '<p class="calc-box-sub">Dinos los metros de tu vallado y calculamos rollos y postes al momento.</p>' +
         '<div class="calc-field"><label for="ce-metros">¿Cuántos metros necesitas?</label>' +
           '<input type="number" id="ce-metros" min="1" step="1" value="50" inputmode="numeric"></div>' +
         (posteVariante ? '<div class="calc-field"><label class="calc-check"><input type="checkbox" id="ce-postes" checked> Incluir postes (aprox. cada 3 m)</label></div>' : '') +
