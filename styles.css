@@ -282,6 +282,17 @@ footer a:hover{color:#fff;}
   transition:transform .15s ease;
 }
 .wa-float:hover{transform:scale(1.06);}
+.back-to-top{
+  position:fixed;bottom:20px;left:20px;z-index:60;
+  background:var(--steel-dark);color:#fff;width:48px;height:48px;border-radius:50%;
+  border:none;font-size:1.3rem;cursor:pointer;box-shadow:var(--shadow-lg);
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transform:translateY(8px);
+  transition:opacity .2s ease, transform .2s ease;
+  display:flex;
+}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+.back-to-top:hover{transform:translateY(0) scale(1.08);}
 
 /* Cookie banner */
 .cookie-banner{
