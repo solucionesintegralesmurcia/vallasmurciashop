@@ -143,6 +143,7 @@
 </footer>
 
 <a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20producto" class="wa-float" aria-label="WhatsApp">💬</a>
+<button type="button" id="back-to-top" class="back-to-top" aria-label="Subir arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <div class="cookie-banner" id="cookie-banner">
   <div class="container">
@@ -180,5 +181,15 @@
   });
 </script>
 
+<script>
+  (function(){
+    var btt = document.getElementById('back-to-top');
+    if(!btt) return;
+    window.addEventListener('scroll', function(){
+      if(window.scrollY > 400){ btt.classList.add('show'); }
+      else { btt.classList.remove('show'); }
+    });
+  })();
+</script>
 </body>
 </html>
