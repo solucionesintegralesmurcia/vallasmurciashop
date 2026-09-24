@@ -162,6 +162,12 @@
     var open = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open);
   });
+  nav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    });
+  });
 
   function cookieChoice(accepted){
     document.cookie = 'cookie_consent=' + accepted + ';max-age=' + (3600*24*180) + ';path=/;SameSite=Lax';
