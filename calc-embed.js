@@ -4,6 +4,8 @@
 //
 // 3 modos, segun el producto:
 // - "rollo+postes": mallas que se venden por metros y llevan poste a juego.
+//   Si el producto tiene variantes con altura (campo "height"), se deja
+//   elegir la altura antes de calcular.
 // - "rollo": productos que se venden por metros pero no llevan poste propio
 //   (alambres, kits, que ya incluyen sus propios postes en el kit).
 // - "postes": paginas de poste, donde se calculan unidades a partir de los
@@ -21,6 +23,9 @@
   function euros(n){
     return n.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €';
   }
+  function formatoAltura(h){
+    return h.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' m';
+  }
   function cabecera(titulo, subtitulo){
     return '<div class="calc-box-head"><span class="calc-icon">📐</span><h3>' + titulo + '</h3></div>' +
       '<p class="calc-box-sub">' + subtitulo + '</p>';
@@ -37,6 +42,12 @@
       return;
     }
 
+    var tieneAltura = grupo.variants.some(function(v){ return typeof v.height === 'number'; });
+    if (tieneAltura) {
+      initModoRolloConAltura(mount, grupo);
+      return;
+    }
+
     var conMetros = grupo.variants
       .map(function(v){ return { v: v, m: metrosDeEtiqueta(v.label) }; })
       .filter(function(x){ return x.m; });
@@ -44,19 +55,74 @@
     conMetros.sort(function(a,b){ return b.m - a.m; });
     var rolloGrande = conMetros[0];
 
-    var conPosteAJuego = CON_POSTE_A_JUEGO.indexOf(GROUP_SLUG) !== -1;
-    var posteGrupo = null, posteVariante = null;
-    if (conPosteAJuego) {
-      var posteSlug = (GROUP_SLUG === 'valla-hercules') ? 'poste-hercules' : 'poste-simple-torsion';
-      posteGrupo = PRODUCT_GROUPS.find(function(g){ return g.slug === posteSlug; });
-      posteVariante = posteGrupo ? posteGrupo.variants.slice().sort(function(a,b){ return a.price - b.price; })[0] : null;
+    mount.innerHTML =
+      '<div class="calc-box" style="margin-top:24px;">' +
+        cabecera('Calcula cuánto necesitas', 'Dinos los metros que necesitas y calculamos la cantidad al momento.') +
+        '<div class="calc-field"><label for="ce-metros">¿Cuántos metros necesitas?</label>' +
+          '<input type="number" id="ce-metros" min="1" step="1" value="50" inputmode="numeric"></div>' +
+        '<div class="calc-result" id="ce-result"></div>' +
+        '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">' +
+          '<button type="button" class="btn btn-clay" id="ce-add-cart" style="flex:1 1 200px;justify-content:center;">🛒 Añadir todo al carrito</button>' +
+          '<a href="#" target="_blank" class="btn btn-outline" id="ce-whatsapp" style="flex:1 1 200px;justify-content:center;">💬 Pedir por WhatsApp</a>' +
+        '</div>' +
+      '</div>';
+
+    var metrosInput = document.getElementById('ce-metros');
+    var resultBox = document.getElementById('ce-result');
+    var addCartBtn = document.getElementById('ce-add-cart');
+    var waLink = document.getElementById('ce-whatsapp');
+
+    function calcular(){
+      var longitud = parseFloat(metrosInput.value) || 0;
+      var numRollos = Math.max(1, Math.ceil(longitud / rolloGrande.m));
+      var total = numRollos * rolloGrande.v.price;
+
+      resultBox.innerHTML =
+        '<div class="calc-line"><span>' + numRollos + ' × ' + rolloGrande.v.label + '</span><span>' + euros(total) + '</span></div>' +
+        '<div class="calc-total"><span>Total estimado</span><span>' + euros(total) + '</span></div>' +
+        '<p class="calc-note">Puede sobrar algo de material, para asegurar cubrir los ' + longitud + ' m sin quedarte corto. El pedido exacto se confirma sin compromiso.</p>';
+
+      addCartBtn.onclick = function(){
+        for (var i=0;i<numRollos;i++) addToCart(rolloGrande.v.id);
+        var original = addCartBtn.textContent;
+        addCartBtn.textContent = '✓ Añadido al carrito';
+        setTimeout(function(){ addCartBtn.textContent = original; }, 1500);
+      };
+
+      var texto = 'Hola, quiero pedir esto de ' + grupo.name + ':\n' +
+        '- Longitud: ' + longitud + ' m\n' +
+        '- ' + numRollos + ' x ' + rolloGrande.v.label + '\n' +
+        '- Total estimado: ' + euros(total);
+      waLink.href = 'https://wa.me/34639311161?text=' + encodeURIComponent(texto);
     }
+
+    metrosInput.addEventListener('input', calcular);
+    metrosInput.addEventListener('change', calcular);
+    calcular();
+  }
+
+  function initModoRolloConAltura(mount, grupo){
+    var alturas = [];
+    grupo.variants.forEach(function(v){
+      if (alturas.indexOf(v.height) === -1) alturas.push(v.height);
+    });
+    alturas.sort(function(a,b){ return a-b; });
+
+    var posteSlug = (GROUP_SLUG === 'valla-hercules') ? 'poste-hercules' : 'poste-simple-torsion';
+    var posteGrupo = PRODUCT_GROUPS.find(function(g){ return g.slug === posteSlug; });
+    var posteVariante = posteGrupo ? posteGrupo.variants.slice().sort(function(a,b){ return a.price - b.price; })[0] : null;
 
     mount.innerHTML =
       '<div class="calc-box" style="margin-top:24px;">' +
-        cabecera('Calcula cuánto necesitas', 'Dinos los metros que necesitas y calculamos ' + (conPosteAJuego ? 'rollos y postes' : 'la cantidad') + ' al momento.') +
-        '<div class="calc-field"><label for="ce-metros">¿Cuántos metros necesitas?</label>' +
-          '<input type="number" id="ce-metros" min="1" step="1" value="50" inputmode="numeric"></div>' +
+        cabecera('Calcula cuánto necesitas', 'Elige la altura, dinos los metros, y calculamos rollos y postes al momento.') +
+        '<div class="calc-row">' +
+          '<div class="calc-field"><label for="ce-metros">¿Cuántos metros necesitas?</label>' +
+            '<input type="number" id="ce-metros" min="1" step="1" value="50" inputmode="numeric"></div>' +
+          '<div class="calc-field"><label for="ce-altura">Altura</label>' +
+            '<select id="ce-altura">' +
+              alturas.map(function(h){ return '<option value="' + h + '"' + (h === 1.5 ? ' selected' : '') + '>' + formatoAltura(h) + '</option>'; }).join('') +
+            '</select></div>' +
+        '</div>' +
         (posteVariante ? '<div class="calc-field"><label class="calc-check"><input type="checkbox" id="ce-postes" checked> Incluir postes (aprox. cada 3 m)</label></div>' : '') +
         '<div class="calc-result" id="ce-result"></div>' +
         '<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">' +
@@ -66,6 +132,7 @@
       '</div>';
 
     var metrosInput = document.getElementById('ce-metros');
+    var alturaSelect = document.getElementById('ce-altura');
     var postesCheck = document.getElementById('ce-postes');
     var resultBox = document.getElementById('ce-result');
     var addCartBtn = document.getElementById('ce-add-cart');
@@ -73,8 +140,12 @@
 
     function calcular(){
       var longitud = parseFloat(metrosInput.value) || 0;
-      var numRollos = Math.max(1, Math.ceil(longitud / rolloGrande.m));
-      var costeMalla = numRollos * rolloGrande.v.price;
+      var altura = parseFloat(alturaSelect.value);
+      var candidatos = grupo.variants.filter(function(v){ return v.height === altura; });
+      var rolloGrande = candidatos.slice().sort(function(a,b){ return b.length - a.length; })[0];
+
+      var numRollos = Math.max(1, Math.ceil(longitud / rolloGrande.length));
+      var costeMalla = numRollos * rolloGrande.price;
 
       var conPostes = postesCheck ? postesCheck.checked : false;
       var numPostes = Math.max(2, Math.ceil(longitud / 3) + 1);
@@ -83,13 +154,13 @@
       var total = costeMalla + costePostes;
 
       resultBox.innerHTML =
-        '<div class="calc-line"><span>' + numRollos + ' × ' + rolloGrande.v.label + '</span><span>' + euros(costeMalla) + '</span></div>' +
+        '<div class="calc-line"><span>' + numRollos + ' × Rollo ' + rolloGrande.length + ' m (altura ' + formatoAltura(altura) + ')</span><span>' + euros(costeMalla) + '</span></div>' +
         (conPostes && posteVariante ? '<div class="calc-line"><span>' + numPostes + ' × poste (' + posteVariante.label + ')</span><span>' + euros(costePostes) + '</span></div>' : '') +
         '<div class="calc-total"><span>Total estimado</span><span>' + euros(total) + '</span></div>' +
-        '<p class="calc-note">Puede sobrar algo de material, para asegurar cubrir los ' + longitud + ' m sin quedarte corto. El pedido exacto se confirma sin compromiso.</p>';
+        '<p class="calc-note">Puede sobrar algo de malla o algún poste, para asegurar cubrir los ' + longitud + ' m sin quedarte corto. El pedido exacto se confirma sin compromiso.</p>';
 
       addCartBtn.onclick = function(){
-        for (var i=0;i<numRollos;i++) addToCart(rolloGrande.v.id);
+        for (var i=0;i<numRollos;i++) addToCart(rolloGrande.id);
         if (conPostes && posteVariante) for (var j=0;j<numPostes;j++) addToCart(posteVariante.id);
         var original = addCartBtn.textContent;
         addCartBtn.textContent = '✓ Añadido al carrito';
@@ -98,7 +169,8 @@
 
       var texto = 'Hola, quiero pedir esto de ' + grupo.name + ':\n' +
         '- Longitud: ' + longitud + ' m\n' +
-        '- ' + numRollos + ' x ' + rolloGrande.v.label + '\n' +
+        '- Altura: ' + formatoAltura(altura) + '\n' +
+        '- ' + numRollos + ' x Rollo ' + rolloGrande.length + ' m\n' +
         (conPostes && posteVariante ? ('- ' + numPostes + ' x poste ' + posteVariante.label + '\n') : '') +
         '- Total estimado: ' + euros(total);
       waLink.href = 'https://wa.me/34639311161?text=' + encodeURIComponent(texto);
@@ -106,6 +178,7 @@
 
     metrosInput.addEventListener('input', calcular);
     metrosInput.addEventListener('change', calcular);
+    alturaSelect.addEventListener('change', calcular);
     if (postesCheck) postesCheck.addEventListener('change', calcular);
     calcular();
   }
