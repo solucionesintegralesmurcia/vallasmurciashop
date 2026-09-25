@@ -56,10 +56,20 @@
 
         <div class="buy-box">
           <div>
-            <label for="variant-select">Longitud del rollo</label>
-            <select id="variant-select" onchange="onVariantChange()">
-        <option value="valla-hercules-25m" data-price="74.9">Rollo 25 m — 74,90 €</option>
-        <option value="valla-hercules-50m" data-price="149.8">Rollo 50 m — 149,80 €</option>
+            <label for="length-select">Longitud del rollo</label>
+            <select id="length-select" onchange="onVariantChange()">
+              <option value="25">Rollo 25 m</option>
+              <option value="50">Rollo 50 m</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="height-select">Altura</label>
+            <select id="height-select" onchange="onVariantChange()">
+              <option value="1">1,00 m</option>
+              <option value="1.25">1,25 m</option>
+              <option value="1.5" selected>1,50 m</option>
+              <option value="2">2,00 m</option>
             </select>
           </div>
 
@@ -167,8 +177,9 @@
     return PRODUCT_GROUPS.find(function(g){ return g.slug === GROUP_SLUG; });
   }
   function currentVariant(){
-    var id = document.getElementById('variant-select').value;
-    return PRODUCTS.find(function(p){ return p.id === id; });
+    var length = parseFloat(document.getElementById('length-select').value);
+    var height = parseFloat(document.getElementById('height-select').value);
+    return currentGroup().variants.find(function(v){ return v.length === length && v.height === height; });
   }
   function onVariantChange(){
     var v = currentVariant();
