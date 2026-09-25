@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css?v=3">
 </head>
 <body>
 
@@ -83,6 +83,8 @@
         </div>
       </div>
 
+      <div id="calc-embed"></div>
+
       <div class="section-head">
         <h2>Descripción</h2>
       </div>
@@ -139,8 +141,8 @@
 <a href="https://wa.me/34639311161?text=Hola%2C%20tengo%20una%20duda%20sobre%20un%20producto" class="wa-float" aria-label="WhatsApp">💬</a>
 <button type="button" id="back-to-top" class="back-to-top" aria-label="Subir arriba" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<script src="/products.js"></script>
-<script src="/cart.js"></script>
+<script src="/products.js?v=3"></script>
+<script src="/cart.js?v=3"></script>
 <script>
   var toggle = document.getElementById('nav-toggle');
   var nav = document.getElementById('main-nav');
@@ -193,5 +195,6 @@
     });
   })();
 </script>
+<script src="/calc-embed.js?v=3"></script>
 </body>
 </html>
