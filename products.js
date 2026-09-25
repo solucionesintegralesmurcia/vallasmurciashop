@@ -17,16 +17,22 @@ const CATEGORIES = [
 ];
 
 const PRODUCT_GROUPS = [
-  {
+    {
     slug: 'malla-ganadera',
     name: 'Malla ganadera galvanizada',
     category: 'mallas',
     img: '/img/products/malla-ganadera.webp',
     shortDesc: 'Malla de alambre galvanizado pensada para contener ganado y delimitar fincas rústicas.',
-    variantLabel: 'Longitud del rollo',
+    variantLabel: 'Rollo y altura',
     variants: [
-      { id: 'malla-ganadera-25m', label: 'Rollo 25 m', price: 29.04 },
-      { id: 'malla-ganadera-50m', label: 'Rollo 50 m', price: 58.08 }
+      { id: 'malla-ganadera-25m-h100', label: 'Rollo 25 m — Altura 1,00 m', price: 19.36, length: 25, height: 1.0 },
+      { id: 'malla-ganadera-25m-h125', label: 'Rollo 25 m — Altura 1,25 m', price: 24.2, length: 25, height: 1.25 },
+      { id: 'malla-ganadera-25m', label: 'Rollo 25 m — Altura 1,50 m', price: 29.04, length: 25, height: 1.5 },
+      { id: 'malla-ganadera-25m-h200', label: 'Rollo 25 m — Altura 2,00 m', price: 38.72, length: 25, height: 2.0 },
+      { id: 'malla-ganadera-50m-h100', label: 'Rollo 50 m — Altura 1,00 m', price: 38.72, length: 50, height: 1.0 },
+      { id: 'malla-ganadera-50m-h125', label: 'Rollo 50 m — Altura 1,25 m', price: 48.4, length: 50, height: 1.25 },
+      { id: 'malla-ganadera-50m', label: 'Rollo 50 m — Altura 1,50 m', price: 58.08, length: 50, height: 1.5 },
+      { id: 'malla-ganadera-50m-h200', label: 'Rollo 50 m — Altura 2,00 m', price: 77.44, length: 50, height: 2.0 }
     ]
   },
   {
@@ -35,10 +41,16 @@ const PRODUCT_GROUPS = [
     category: 'mallas',
     img: '/img/products/malla-cinegetica.webp',
     shortDesc: 'Malla con separación de alambres regulada por normativa, que permite el paso de fauna silvestre.',
-    variantLabel: 'Longitud del rollo',
+    variantLabel: 'Rollo y altura',
     variants: [
-      { id: 'malla-cinegetica-25m', label: 'Rollo 25 m', price: 31.25 },
-      { id: 'malla-cinegetica-50m', label: 'Rollo 50 m', price: 62.5 }
+      { id: 'malla-cinegetica-25m-h100', label: 'Rollo 25 m — Altura 1,00 m', price: 20.83, length: 25, height: 1.0 },
+      { id: 'malla-cinegetica-25m-h125', label: 'Rollo 25 m — Altura 1,25 m', price: 26.04, length: 25, height: 1.25 },
+      { id: 'malla-cinegetica-25m', label: 'Rollo 25 m — Altura 1,50 m', price: 31.25, length: 25, height: 1.5 },
+      { id: 'malla-cinegetica-25m-h200', label: 'Rollo 25 m — Altura 2,00 m', price: 41.67, length: 25, height: 2.0 },
+      { id: 'malla-cinegetica-50m-h100', label: 'Rollo 50 m — Altura 1,00 m', price: 41.67, length: 50, height: 1.0 },
+      { id: 'malla-cinegetica-50m-h125', label: 'Rollo 50 m — Altura 1,25 m', price: 52.08, length: 50, height: 1.25 },
+      { id: 'malla-cinegetica-50m', label: 'Rollo 50 m — Altura 1,50 m', price: 62.5, length: 50, height: 1.5 },
+      { id: 'malla-cinegetica-50m-h200', label: 'Rollo 50 m — Altura 2,00 m', price: 83.33, length: 50, height: 2.0 }
     ]
   },
   {
@@ -47,10 +59,16 @@ const PRODUCT_GROUPS = [
     category: 'mallas',
     img: '/img/products/malla-hercules.webp',
     shortDesc: 'Panel de malla soldada de gran resistencia, uno de los sistemas de vallado más utilizados en España.',
-    variantLabel: 'Longitud del rollo',
+    variantLabel: 'Rollo y altura',
     variants: [
-      { id: 'valla-hercules-25m', label: 'Rollo 25 m', price: 74.9 },
-      { id: 'valla-hercules-50m', label: 'Rollo 50 m', price: 149.8 }
+      { id: 'valla-hercules-25m-h100', label: 'Rollo 25 m — Altura 1,00 m', price: 49.93, length: 25, height: 1.0 },
+      { id: 'valla-hercules-25m-h125', label: 'Rollo 25 m — Altura 1,25 m', price: 62.42, length: 25, height: 1.25 },
+      { id: 'valla-hercules-25m', label: 'Rollo 25 m — Altura 1,50 m', price: 74.9, length: 25, height: 1.5 },
+      { id: 'valla-hercules-25m-h200', label: 'Rollo 25 m — Altura 2,00 m', price: 99.87, length: 25, height: 2.0 },
+      { id: 'valla-hercules-50m-h100', label: 'Rollo 50 m — Altura 1,00 m', price: 99.87, length: 50, height: 1.0 },
+      { id: 'valla-hercules-50m-h125', label: 'Rollo 50 m — Altura 1,25 m', price: 124.83, length: 50, height: 1.25 },
+      { id: 'valla-hercules-50m', label: 'Rollo 50 m — Altura 1,50 m', price: 149.8, length: 50, height: 1.5 },
+      { id: 'valla-hercules-50m-h200', label: 'Rollo 50 m — Altura 2,00 m', price: 199.73, length: 50, height: 2.0 }
     ]
   },
   {
@@ -59,10 +77,16 @@ const PRODUCT_GROUPS = [
     category: 'mallas',
     img: '/img/products/malla-simple-torsion.webp',
     shortDesc: 'La solución más extendida y económica para delimitar parcelas, jardines y terrenos.',
-    variantLabel: 'Longitud del rollo',
+    variantLabel: 'Rollo y altura',
     variants: [
-      { id: 'malla-simple-torsion-25m', label: 'Rollo 25 m', price: 43.56 },
-      { id: 'malla-simple-torsion-50m', label: 'Rollo 50 m', price: 87.12 }
+      { id: 'malla-simple-torsion-25m-h100', label: 'Rollo 25 m — Altura 1,00 m', price: 29.04, length: 25, height: 1.0 },
+      { id: 'malla-simple-torsion-25m-h125', label: 'Rollo 25 m — Altura 1,25 m', price: 36.3, length: 25, height: 1.25 },
+      { id: 'malla-simple-torsion-25m', label: 'Rollo 25 m — Altura 1,50 m', price: 43.56, length: 25, height: 1.5 },
+      { id: 'malla-simple-torsion-25m-h200', label: 'Rollo 25 m — Altura 2,00 m', price: 58.08, length: 25, height: 2.0 },
+      { id: 'malla-simple-torsion-50m-h100', label: 'Rollo 50 m — Altura 1,00 m', price: 58.08, length: 50, height: 1.0 },
+      { id: 'malla-simple-torsion-50m-h125', label: 'Rollo 50 m — Altura 1,25 m', price: 72.6, length: 50, height: 1.25 },
+      { id: 'malla-simple-torsion-50m', label: 'Rollo 50 m — Altura 1,50 m', price: 87.12, length: 50, height: 1.5 },
+      { id: 'malla-simple-torsion-50m-h200', label: 'Rollo 50 m — Altura 2,00 m', price: 116.16, length: 50, height: 2.0 }
     ]
   },
   {
@@ -71,10 +95,16 @@ const PRODUCT_GROUPS = [
     category: 'mallas',
     img: '/img/products/malla-electrosoldada.webp',
     shortDesc: 'Malla rígida de cuadrícula soldada, estable y fácil de manejar, para agricultura, ganadería e industria.',
-    variantLabel: 'Longitud del rollo',
+    variantLabel: 'Rollo y altura',
     variants: [
-      { id: 'malla-electrosoldada-25m', label: 'Rollo 25 m', price: 41.38 },
-      { id: 'malla-electrosoldada-50m', label: 'Rollo 50 m', price: 82.76 }
+      { id: 'malla-electrosoldada-25m-h100', label: 'Rollo 25 m — Altura 1,00 m', price: 27.59, length: 25, height: 1.0 },
+      { id: 'malla-electrosoldada-25m-h125', label: 'Rollo 25 m — Altura 1,25 m', price: 34.48, length: 25, height: 1.25 },
+      { id: 'malla-electrosoldada-25m', label: 'Rollo 25 m — Altura 1,50 m', price: 41.38, length: 25, height: 1.5 },
+      { id: 'malla-electrosoldada-25m-h200', label: 'Rollo 25 m — Altura 2,00 m', price: 55.17, length: 25, height: 2.0 },
+      { id: 'malla-electrosoldada-50m-h100', label: 'Rollo 50 m — Altura 1,00 m', price: 55.17, length: 50, height: 1.0 },
+      { id: 'malla-electrosoldada-50m-h125', label: 'Rollo 50 m — Altura 1,25 m', price: 68.97, length: 50, height: 1.25 },
+      { id: 'malla-electrosoldada-50m', label: 'Rollo 50 m — Altura 1,50 m', price: 82.76, length: 50, height: 1.5 },
+      { id: 'malla-electrosoldada-50m-h200', label: 'Rollo 50 m — Altura 2,00 m', price: 110.35, length: 50, height: 2.0 }
     ]
   },
   {
@@ -83,10 +113,16 @@ const PRODUCT_GROUPS = [
     category: 'mallas',
     img: '/img/products/malla-gallinera.webp',
     shortDesc: 'Malla hexagonal ligera, la opción más económica para gallineros, corrales y conejeras.',
-    variantLabel: 'Longitud del rollo',
+    variantLabel: 'Rollo y altura',
     variants: [
-      { id: 'malla-gallinera-25m', label: 'Rollo 25 m', price: 27.3 },
-      { id: 'malla-gallinera-50m', label: 'Rollo 50 m', price: 54.6 }
+      { id: 'malla-gallinera-25m-h100', label: 'Rollo 25 m — Altura 1,00 m', price: 18.2, length: 25, height: 1.0 },
+      { id: 'malla-gallinera-25m-h125', label: 'Rollo 25 m — Altura 1,25 m', price: 22.75, length: 25, height: 1.25 },
+      { id: 'malla-gallinera-25m', label: 'Rollo 25 m — Altura 1,50 m', price: 27.3, length: 25, height: 1.5 },
+      { id: 'malla-gallinera-25m-h200', label: 'Rollo 25 m — Altura 2,00 m', price: 36.4, length: 25, height: 2.0 },
+      { id: 'malla-gallinera-50m-h100', label: 'Rollo 50 m — Altura 1,00 m', price: 36.4, length: 50, height: 1.0 },
+      { id: 'malla-gallinera-50m-h125', label: 'Rollo 50 m — Altura 1,25 m', price: 45.5, length: 50, height: 1.25 },
+      { id: 'malla-gallinera-50m', label: 'Rollo 50 m — Altura 1,50 m', price: 54.6, length: 50, height: 1.5 },
+      { id: 'malla-gallinera-50m-h200', label: 'Rollo 50 m — Altura 2,00 m', price: 72.8, length: 50, height: 2.0 }
     ]
   },
   {
