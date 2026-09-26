@@ -121,8 +121,12 @@
           '<div class="order-summary-row"><span>Subtotal</span><span>' + totalFmt + '</span></div>' +
           '<div class="order-summary-row"><span>Envío</span><span>Te lo confirmamos por WhatsApp</span></div>' +
           '<div class="order-summary-total"><span>Total estimado</span><span>' + totalFmt + '</span></div>' +
-          '<div class="calc-field" style="margin-top:14px;"><label for="order-name">Tu nombre (opcional)</label>' +
-            '<input type="text" id="order-name" placeholder="Cómo te llamamos"></div>' +
+          '<div class="calc-field" style="margin-top:14px;"><label for="order-name">Nombre y apellidos</label>' +
+            '<input type="text" id="order-name" placeholder="Tu nombre" required></div>' +
+          '<div class="calc-field"><label for="order-phone">Teléfono</label>' +
+            '<input type="tel" id="order-phone" placeholder="Un número donde localizarte" required></div>' +
+          '<div class="calc-field"><label for="order-address">Dirección de envío</label>' +
+            '<input type="text" id="order-address" placeholder="Calle, número, población" required></div>' +
           '<label class="order-legal">' +
             '<input type="checkbox" id="legal-check" checked style="margin-top:3px;">' +
             '<span>Acepto que mis datos se usen para gestionar este pedido.</span>' +
@@ -140,8 +144,9 @@
   function actualizarEnlaceWhatsApp(){
     var cart = getCart();
     if (cart.length === 0) return;
-    var nombreInput = document.getElementById('order-name');
-    var nombre = nombreInput ? nombreInput.value.trim() : '';
+    var nombre = (document.getElementById('order-name') || {}).value || '';
+    var telefono = (document.getElementById('order-phone') || {}).value || '';
+    var direccion = (document.getElementById('order-address') || {}).value || '';
 
     var lineas = cart.map(function(i){
       return '- ' + i.qty + ' x ' + i.name + ' — ' + (i.price * i.qty).toFixed(2).replace('.', ',') + ' €';
@@ -149,9 +154,11 @@
 
     var total = cartTotal().toFixed(2).replace('.', ',') + ' €';
 
-    var texto = 'Hola' + (nombre ? ', soy ' + nombre : '') + ', quiero pedir esto:\n\n' +
+    var texto = 'Hola' + (nombre ? ', soy ' + nombre.trim() : '') + ', quiero pedir esto:\n\n' +
       lineas + '\n\n' +
       'Total estimado: ' + total + '\n\n' +
+      (telefono ? 'Teléfono: ' + telefono.trim() + '\n' : '') +
+      (direccion ? 'Dirección de envío: ' + direccion.trim() + '\n\n' : '\n') +
       '¿Me confirmáis precio final, envío y forma de pago?';
 
     var href = 'https://wa.me/34639311161?text=' + encodeURIComponent(texto);
@@ -161,9 +168,17 @@
     if (mBtn) mBtn.href = href;
   }
 
-  var _formLegalWarned = false;
   function interceptarEnvioWhatsApp(e){
+    var nombre = (document.getElementById('order-name') || {}).value || '';
+    var telefono = (document.getElementById('order-phone') || {}).value || '';
+    var direccion = (document.getElementById('order-address') || {}).value || '';
     var legal = document.getElementById('legal-check');
+
+    if (!nombre.trim() || !telefono.trim() || !direccion.trim()) {
+      e.preventDefault();
+      alert('Rellena tu nombre, teléfono y dirección de envío antes de enviar el pedido.');
+      return;
+    }
     if (legal && !legal.checked) {
       e.preventDefault();
       alert('Debes aceptar el uso de tus datos para continuar.');
@@ -175,7 +190,7 @@
     }
   });
   document.addEventListener('input', function(e){
-    if (e.target && e.target.id === 'order-name') actualizarEnlaceWhatsApp();
+    if (e.target && ['order-name','order-phone','order-address'].indexOf(e.target.id) !== -1) actualizarEnlaceWhatsApp();
   });
 
   renderCartPage();
