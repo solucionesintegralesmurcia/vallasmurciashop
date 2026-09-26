@@ -36,14 +36,14 @@
 
       <div class="trust-strip">
         <span>🚚 Envío en toda la Región de Murcia</span>
-        <span>🧾 Factura por email</span>
-        <span>🔒 Pago seguro con tarjeta</span>
+        <span>📋 Presupuesto sin compromiso</span>
+        <span>💬 Te confirmamos por WhatsApp</span>
         <span>🏗️ Fabricante e instalador directo</span>
       </div>
 
-      <p class="order-steps"><b>1. Tu pedido</b> → 2. Datos de envío y pago (página segura de Stripe)</p>
+      <p class="order-steps"><b>1. Tu pedido</b> → 2. Lo confirmamos contigo por WhatsApp → 3. Pagas cuando estés conforme</p>
       <h1 style="font-family:var(--font-head);font-size:2rem;margin-bottom:4px;">Tu pedido</h1>
-      <p style="color:var(--ink-soft);margin-top:0;">Revisa las cantidades y continúa: el envío y el pago con tarjeta se completan en la página segura de Stripe.</p>
+      <p style="color:var(--ink-soft);margin-top:0;">Revisa las cantidades y envíanoslo por WhatsApp. Te confirmamos precio final, envío y forma de pago antes de nada — no se cobra nada en este paso.</p>
 
       <div id="cart-content"></div>
     </div>
@@ -52,10 +52,10 @@
 
 <div class="order-mobile-bar" id="mobile-bar" style="display:none;">
   <div>
-    <div style="font-size:.75rem;color:var(--ink-soft);">Total</div>
+    <div style="font-size:.75rem;color:var(--ink-soft);">Total estimado</div>
     <div style="font-family:var(--font-head);font-size:1.2rem;color:var(--clay);" id="mobile-total">0,00 €</div>
   </div>
-  <button class="btn btn-clay" id="mobile-checkout-btn" onclick="goToCheckout()">Continuar al pago seguro</button>
+  <a href="#" target="_blank" class="btn btn-clay" id="mobile-checkout-btn">💬 Enviar pedido por WhatsApp</a>
 </div>
 
 <footer>
@@ -119,31 +119,64 @@
         '<aside class="order-summary">' +
           '<h3 style="margin-top:0;">Resumen</h3>' +
           '<div class="order-summary-row"><span>Subtotal</span><span>' + totalFmt + '</span></div>' +
-          '<div class="order-summary-row"><span>Envío</span><span>Se calcula en el siguiente paso</span></div>' +
-          '<div class="order-summary-total"><span>Total</span><span>' + totalFmt + '</span></div>' +
+          '<div class="order-summary-row"><span>Envío</span><span>Te lo confirmamos por WhatsApp</span></div>' +
+          '<div class="order-summary-total"><span>Total estimado</span><span>' + totalFmt + '</span></div>' +
+          '<div class="calc-field" style="margin-top:14px;"><label for="order-name">Tu nombre (opcional)</label>' +
+            '<input type="text" id="order-name" placeholder="Cómo te llamamos"></div>' +
           '<label class="order-legal">' +
             '<input type="checkbox" id="legal-check" checked style="margin-top:3px;">' +
             '<span>Acepto que mis datos se usen para gestionar este pedido.</span>' +
           '</label>' +
-          '<button id="checkout-btn" class="btn btn-clay" style="width:100%;justify-content:center;" onclick="goToCheckout()">Continuar al pago seguro</button>' +
-          '<p style="font-size:.78rem;color:var(--ink-soft);margin-top:10px;">Se te pedirán los datos de envío y de tarjeta en la página segura de Stripe. No guardamos los datos de tu tarjeta.</p>' +
+          '<a href="#" target="_blank" id="checkout-btn" class="btn btn-clay" style="width:100%;justify-content:center;">💬 Enviar pedido por WhatsApp</a>' +
+          '<p style="font-size:.78rem;color:var(--ink-soft);margin-top:10px;">Esto no es un pago. Te escribimos por WhatsApp para confirmar precio final, envío y forma de pago antes de cobrar nada.</p>' +
         '</aside>' +
       '</div>';
 
     document.getElementById('mobile-total').textContent = totalFmt;
     mobileBar.style.display = 'flex';
+    actualizarEnlaceWhatsApp();
   }
 
-  var _origGoToCheckout = goToCheckout;
-  goToCheckout = async function(){
-    var legal = document.getElementById('legal-check');
-    if (legal && !legal.checked) { alert('Debes aceptar el uso de tus datos para continuar.'); return; }
+  function actualizarEnlaceWhatsApp(){
+    var cart = getCart();
+    if (cart.length === 0) return;
+    var nombreInput = document.getElementById('order-name');
+    var nombre = nombreInput ? nombreInput.value.trim() : '';
+
+    var lineas = cart.map(function(i){
+      return '- ' + i.qty + ' x ' + i.name + ' — ' + (i.price * i.qty).toFixed(2).replace('.', ',') + ' €';
+    }).join('\n');
+
+    var total = cartTotal().toFixed(2).replace('.', ',') + ' €';
+
+    var texto = 'Hola' + (nombre ? ', soy ' + nombre : '') + ', quiero pedir esto:\n\n' +
+      lineas + '\n\n' +
+      'Total estimado: ' + total + '\n\n' +
+      '¿Me confirmáis precio final, envío y forma de pago?';
+
+    var href = 'https://wa.me/34639311161?text=' + encodeURIComponent(texto);
     var btn = document.getElementById('checkout-btn');
     var mBtn = document.getElementById('mobile-checkout-btn');
-    if (btn) btn.textContent = 'Redirigiendo a pago seguro…';
-    if (mBtn) mBtn.textContent = 'Redirigiendo…';
-    await _origGoToCheckout();
-  };
+    if (btn) btn.href = href;
+    if (mBtn) mBtn.href = href;
+  }
+
+  var _formLegalWarned = false;
+  function interceptarEnvioWhatsApp(e){
+    var legal = document.getElementById('legal-check');
+    if (legal && !legal.checked) {
+      e.preventDefault();
+      alert('Debes aceptar el uso de tus datos para continuar.');
+    }
+  }
+  document.addEventListener('click', function(e){
+    if (e.target && (e.target.id === 'checkout-btn' || e.target.id === 'mobile-checkout-btn')) {
+      interceptarEnvioWhatsApp(e);
+    }
+  });
+  document.addEventListener('input', function(e){
+    if (e.target && e.target.id === 'order-name') actualizarEnlaceWhatsApp();
+  });
 
   renderCartPage();
 </script>
